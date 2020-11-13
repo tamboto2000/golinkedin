@@ -34,7 +34,7 @@ type Profile struct {
 	ProfileSkills                         *SkillNode         `json:"profileSkills,omitempty"`
 	RecipeType                            string             `json:"$recipeType,omitempty"`
 	MultiLocaleHeadline                   *MultiLocale       `json:"multiLocaleHeadline,omitempty"`
-	ProfileHonors                         *HonorNode         `json:"ProfileHonors,omitempty"`
+	ProfileHonors                         *HonorNode         `json:"profileHonors,omitempty"`
 	Memorialized                          bool               `json:"memorialized,omitempty"`
 	LastName                              string             `json:"lastName,omitempty"`
 	VolunteerCauses                       []string           `json:"volunteerCauses,omitempty"`
@@ -137,6 +137,15 @@ func (p *ProfileNode) Skills() *SkillNode {
 	s.ProfileID = profileID
 
 	return s
+}
+
+func (p *ProfileNode) Honors() *HonorNode {
+	profileID := parseProfileID(p.Elements[0].EntityUrn)
+	honor := p.Elements[0].ProfileHonors
+	honor.ln = p.ln
+	honor.ProfileID = profileID
+
+	return honor
 }
 
 func parseProfileID(entityUrn string) string {
