@@ -54,6 +54,10 @@ type ProfileTreasuryMediaEducation struct {
 	Elements   []interface{} `json:"elements,omitempty"`
 }
 
+func (edu *EducationNode) SetLinkedin(ln *Linkedin) {
+	edu.ln = ln
+}
+
 // Next cursoring educations.
 // New educations stored in EducationNode.Elements
 func (edu *EducationNode) Next() bool {
