@@ -81,33 +81,6 @@ type BackgroundPicture struct {
 	DisplayImageUrn       string                 `json:"displayImageUrn,omitempty"`
 }
 
-func (p *ProfileNode) Organizations() *OrganizationNode {
-	profileID := parseProfileID(p.Elements[0].EntityUrn)
-	org := p.Elements[0].ProfileOrganizations
-	org.ln = p.ln
-	org.ProfileID = profileID
-
-	return org
-}
-
-func (p *ProfileNode) Certifications() *CertificationNode {
-	profileID := parseProfileID(p.Elements[0].EntityUrn)
-	cert := p.Elements[0].ProfileCertifications
-	cert.ln = p.ln
-	cert.ProfileID = profileID
-
-	return cert
-}
-
-func (p *ProfileNode) Educations() *EducationNode {
-	profileID := parseProfileID(p.Elements[0].EntityUrn)
-	educations := p.Elements[0].ProfileEducations
-	educations.ln = p.ln
-	educations.ProfileID = profileID
-
-	return educations
-}
-
 // ProfileByUsername lookup profile with basic information by public identifier (username)
 func (ln *Linkedin) ProfileByUsername(username string) (*ProfileNode, error) {
 	q := make(url.Values)
@@ -128,6 +101,42 @@ func (ln *Linkedin) ProfileByUsername(username string) (*ProfileNode, error) {
 	profile.ln = ln
 
 	return profile, nil
+}
+
+func (p *ProfileNode) Organizations() *OrganizationNode {
+	profileID := parseProfileID(p.Elements[0].EntityUrn)
+	org := p.Elements[0].ProfileOrganizations
+	org.ln = p.ln
+	org.ProfileID = profileID
+
+	return org
+}
+
+func (p *ProfileNode) Educations() *EducationNode {
+	profileID := parseProfileID(p.Elements[0].EntityUrn)
+	educations := p.Elements[0].ProfileEducations
+	educations.ln = p.ln
+	educations.ProfileID = profileID
+
+	return educations
+}
+
+func (p *ProfileNode) Certifications() *CertificationNode {
+	profileID := parseProfileID(p.Elements[0].EntityUrn)
+	cert := p.Elements[0].ProfileCertifications
+	cert.ln = p.ln
+	cert.ProfileID = profileID
+
+	return cert
+}
+
+func (p *ProfileNode) Skills() *SkillNode {
+	profileID := parseProfileID(p.Elements[0].EntityUrn)
+	s := p.Elements[0].ProfileSkills
+	s.ln = p.ln
+	s.ProfileID = profileID
+
+	return s
 }
 
 func parseProfileID(entityUrn string) string {
