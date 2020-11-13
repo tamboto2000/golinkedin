@@ -17,7 +17,6 @@ import (
 
 const (
 	// ErrSessionInvalid is returned when Linkedin session can not be used
-	// for requesting Linkedin API
 	ErrSessionInvalid = "Linkedin session invalid"
 
 	basePath  = "https://www.linkedin.com"
