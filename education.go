@@ -9,7 +9,7 @@ import (
 // EducationNode contains user educations info
 type EducationNode struct {
 	// will set after calling ProfileNode.Educations()
-	ProfileID string      `json:"profileId"`
+	ProfileID string      `json:"profileId,omitempty"`
 	Elements  []Education `json:"elements,omitempty"`
 	Paging    Paging      `json:"paging,omitempty"`
 
@@ -49,9 +49,9 @@ type School struct {
 }
 
 type ProfileTreasuryMediaEducation struct {
-	Paging     Paging        `json:"paging"`
-	RecipeType string        `json:"$recipeType"`
-	Elements   []interface{} `json:"elements"`
+	Paging     Paging        `json:"paging,omitempty"`
+	RecipeType string        `json:"$recipeType,omitempty"`
+	Elements   []interface{} `json:"elements,omitempty"`
 }
 
 // Next cursoring educations.

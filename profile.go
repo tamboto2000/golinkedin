@@ -9,7 +9,7 @@ import (
 // ProfileNode contains user profile info
 type ProfileNode struct {
 	Elements []Profile `json:"elements,omitempty"`
-	Paging   Paging    `json:"paging"`
+	Paging   Paging    `json:"paging,omitempty"`
 
 	ln *Linkedin
 }
@@ -25,7 +25,7 @@ type Profile struct {
 	ProfileEducations                     *EducationNode     `json:"profileEducations,omitempty"`
 	MultiLocaleFirstName                  *MultiLocale       `json:"multiLocaleFirstName,omitempty"`
 	PublicIdentifier                      string             `json:"publicIdentifier,omitempty"`
-	ProfileCertifications                 CertificationNode  `json:"profileCertifications,omitempty"`
+	ProfileCertifications                 *CertificationNode `json:"profileCertifications,omitempty"`
 	TrackingID                            string             `json:"trackingId,omitempty"`
 	MultiLocaleSummary                    MultiLocale        `json:"multiLocaleSummary,omitempty"`
 	VersionTag                            string             `json:"versionTag,omitempty"`
@@ -37,7 +37,7 @@ type Profile struct {
 	ProfileHonors                         *HonorNode         `json:"ProfileHonors,omitempty"`
 	Memorialized                          bool               `json:"memorialized,omitempty"`
 	LastName                              string             `json:"lastName,omitempty"`
-	VolunteerCauses                       []string           `json:"volunteerCauses"`
+	VolunteerCauses                       []string           `json:"volunteerCauses,omitempty"`
 	ShowPremiumSubscriberBadge            bool               `json:"showPremiumSubscriberBadge,omitempty"`
 	Industry                              *Industry          `json:"industry,omitempty"`
 	GeoLocationBackfilled                 bool               `json:"geoLocationBackfilled,omitempty"`
@@ -54,7 +54,7 @@ type Profile struct {
 	GeoLocation                           *GeoLocation       `json:"geoLocation,omitempty"`
 	Location                              *Location          `json:"location,omitempty"`
 	BackgroundPicture                     *BackgroundPicture `json:"backgroundPicture,omitempty"`
-	PrimaryLocale                         *Locale            `json:"primaryLocale"`
+	PrimaryLocale                         *Locale            `json:"primaryLocale,omitempty"`
 
 	// Unsolved:
 	// ProfileTreasuryMediaProfile
@@ -81,8 +81,17 @@ type BackgroundPicture struct {
 	DisplayImageUrn       string                 `json:"displayImageUrn,omitempty"`
 }
 
+func (p *ProfileNode) Certifications() *CertificationNode {
+	profileID := parseProfileID(p.Elements[0].EntityUrn)
+	cert := p.Elements[0].ProfileCertifications
+	cert.ln = p.ln
+	cert.ProfileID = profileID
+
+	return cert
+}
+
 func (p *ProfileNode) Educations() *EducationNode {
-	profileID := strings.Replace(p.Elements[0].EntityUrn, "urn:li:fsd_profile:", "", 1)
+	profileID := parseProfileID(p.Elements[0].EntityUrn)
 	educations := p.Elements[0].ProfileEducations
 	educations.ln = p.ln
 	educations.ProfileID = profileID
@@ -110,4 +119,8 @@ func (ln *Linkedin) ProfileByUsername(username string) (*ProfileNode, error) {
 	profile.ln = ln
 
 	return profile, nil
+}
+
+func parseProfileID(entityUrn string) string {
+	return strings.Replace(entityUrn, "urn:li:fsd_profile:", "", 1)
 }
