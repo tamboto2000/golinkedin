@@ -31,6 +31,7 @@ type Certification struct {
 	Company                  Company     `json:"company,omitempty"`
 	RecipeType               string      `json:"$recipeType,omitempty"`
 	DisplaySource            string      `json:"displaySource,omitempty"`
+	TimePeriod               TimePeriod  `json:"timePeriod,omitempty"`
 }
 
 // SetLinkedin set Linkedin client

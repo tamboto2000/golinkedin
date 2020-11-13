@@ -98,6 +98,10 @@ type Company struct {
 	UniversalName        string                `json:"universalName,omitempty"`
 	URL                  string                `json:"url,omitempty"`
 	EmployeeCountRange   *EmployeeCountRange   `json:"employeeCountRange,omitempty"`
+	ObjectUrn            string                `json:"objectUrn,omitempty"`
+	Showcase             bool                  `json:"showcase,omitempty"`
+	Active               bool                  `json:"active,omitempty"`
+	TrackingID           string                `json:"trackingId,omitempty"`
 }
 
 type Industry struct {

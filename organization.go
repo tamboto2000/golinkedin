@@ -25,6 +25,9 @@ type Organization struct {
 	RecipeType              string      `json:"$recipeType,omitempty"`
 	PositionHeld            string      `json:"positionHeld,omitempty"`
 	MultiLocalePositionHeld MultiLocale `json:"multiLocalePositionHeld,omitempty"`
+
+	TimePeriod *TimePeriod `json:"timePeriod,omitempty"`
+	Position   string      `json:"position,omitempty"`
 }
 
 // SetLinkedin set Linkedin client
