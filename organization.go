@@ -1,9 +1,20 @@
 package linkedin
 
+import (
+	"encoding/json"
+	"net/url"
+	"strconv"
+)
+
+// OrganizationNode contains user organizations info
 type OrganizationNode struct {
+	ProfileID  string         `json:"profileId,omitempty"`
 	Paging     Paging         `json:"paging,omitempty"`
 	RecipeType string         `json:"$recipeType,omitempty"`
 	Elements   []Organization `json:"elements,omitempty"`
+
+	err error
+	ln  *Linkedin
 }
 
 type Organization struct {
@@ -14,4 +25,44 @@ type Organization struct {
 	RecipeType              string      `json:"$recipeType,omitempty"`
 	PositionHeld            string      `json:"positionHeld,omitempty"`
 	MultiLocalePositionHeld MultiLocale `json:"multiLocalePositionHeld,omitempty"`
+}
+
+// SetLinkedin set Linkedin client
+func (org *OrganizationNode) SetLinkedin(ln *Linkedin) {
+	org.ln = ln
+}
+
+// Next cursoring educations.
+// New certifications stored in OrganizationNode.Elements
+func (org *OrganizationNode) Next() bool {
+	start := strconv.Itoa(org.Paging.Start)
+	count := strconv.Itoa(org.Paging.Count)
+	raw, err := org.ln.get("/identity/profiles/"+org.ProfileID+"/organizations", url.Values{
+		"start": {start},
+		"count": {count},
+	})
+
+	if err != nil {
+		org.err = err
+		return false
+	}
+
+	orgNode := new(OrganizationNode)
+	if err := json.Unmarshal(raw, orgNode); err != nil {
+		org.err = err
+		return false
+	}
+
+	org.Elements = orgNode.Elements
+	org.Paging.Start = orgNode.Paging.Start + orgNode.Paging.Count
+
+	if len(org.Elements) == 0 {
+		return false
+	}
+
+	return true
+}
+
+func (org *OrganizationNode) Error() error {
+	return org.err
 }

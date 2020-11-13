@@ -6,6 +6,7 @@ import (
 	"strconv"
 )
 
+// CertificationNode contains user educations info
 type CertificationNode struct {
 	ProfileID  string          `json:"profileId,omitempty"`
 	Paging     Paging          `json:"paging,omitempty"`

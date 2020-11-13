@@ -81,6 +81,15 @@ type BackgroundPicture struct {
 	DisplayImageUrn       string                 `json:"displayImageUrn,omitempty"`
 }
 
+func (p *ProfileNode) Organizations() *OrganizationNode {
+	profileID := parseProfileID(p.Elements[0].EntityUrn)
+	org := p.Elements[0].ProfileOrganizations
+	org.ln = p.ln
+	org.ProfileID = profileID
+
+	return org
+}
+
 func (p *ProfileNode) Certifications() *CertificationNode {
 	profileID := parseProfileID(p.Elements[0].EntityUrn)
 	cert := p.Elements[0].ProfileCertifications
