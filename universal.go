@@ -84,8 +84,8 @@ type DateRange struct {
 }
 
 type AntiAbuseAnnotation struct {
-	AttributeID int64 `json:"attributeId,omitempty"`
-	EntityID    int64 `json:"entityId,omitempty"`
+	AttributeID int `json:"attributeId,omitempty"`
+	EntityID    int `json:"entityId,omitempty"`
 }
 
 type Locale struct {

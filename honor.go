@@ -32,8 +32,8 @@ type Honor struct {
 }
 
 type IssuedOn struct {
-	Month int64 `json:"month,omitempty"`
-	Year  int64 `json:"year,omitempty"`
+	Month int `json:"month,omitempty"`
+	Year  int `json:"year,omitempty"`
 }
 
 type OccupationUnion struct {
