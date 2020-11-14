@@ -40,19 +40,19 @@ type Artifact struct {
 }
 
 type PhotoFilterEditInfo struct {
-	BottomLeft      *BottomLeft `json:"bottomLeft,omitempty"`
+	BottomLeft      *Coordinate `json:"bottomLeft,omitempty"`
 	Vignette        float64     `json:"vignette,omitempty"`
-	BottomRight     *BottomLeft `json:"bottomRight,omitempty"`
-	TopRight        *BottomLeft `json:"topRight,omitempty"`
+	BottomRight     *Coordinate `json:"bottomRight,omitempty"`
+	TopRight        *Coordinate `json:"topRight,omitempty"`
 	Saturation      float64     `json:"saturation,omitempty"`
 	Brightness      float64     `json:"brightness,omitempty"`
 	PhotoFilterType string      `json:"photoFilterType,omitempty"`
 	Contrast        float64     `json:"contrast,omitempty"`
-	TopLeft         *BottomLeft `json:"topLeft,omitempty"`
+	TopLeft         *Coordinate `json:"topLeft,omitempty"`
 	RecipeType      string      `json:"$recipeType,omitempty"`
 }
 
-type BottomLeft struct {
+type Coordinate struct {
 	X float64 `json:"x,omitempty"`
 	Y float64 `json:"y,omitempty"`
 }
