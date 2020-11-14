@@ -148,6 +148,15 @@ func (p *ProfileNode) Honors() *HonorNode {
 	return honor
 }
 
+func (p *ProfileNode) PositionGroups() *PositionGroupNode {
+	profileID := parseProfileID(p.Elements[0].EntityUrn)
+	post := p.Elements[0].ProfilePositionGroups
+	post.ln = p.ln
+	post.ProfileID = profileID
+
+	return post
+}
+
 func parseProfileID(entityUrn string) string {
 	return strings.Replace(entityUrn, "urn:li:fsd_profile:", "", 1)
 }

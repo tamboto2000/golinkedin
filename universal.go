@@ -22,12 +22,15 @@ type DisplayImageReference struct {
 	URL         string       `json:"url,omitempty"`
 }
 
+// VectorImage store images of multiple qualities
 type VectorImage struct {
-	RecipeType string     `json:"$recipeType,omitempty"`
-	RootURL    string     `json:"rootUrl,omitempty"`
-	Artifacts  []Artifact `json:"artifacts,omitempty"`
+	RecipeType string `json:"$recipeType,omitempty"`
+	// use RootURL + Artifact.FileIdentifyingURLPathSegment for creating url to an image
+	RootURL   string     `json:"rootUrl,omitempty"`
+	Artifacts []Artifact `json:"artifacts,omitempty"`
 }
 
+// Artifact store the suffix path of an image
 type Artifact struct {
 	Width                         int    `json:"width,omitempty"`
 	FileIdentifyingURLPathSegment string `json:"fileIdentifyingUrlPathSegment,omitempty"`
@@ -54,11 +57,15 @@ type BottomLeft struct {
 	Y float64 `json:"y,omitempty"`
 }
 
+// Logo ususally used in Company or School for their logo image
 type Logo struct {
+	// Sometimes the images stored in here
 	COMLinkedinCommonVectorImage *VectorImage `json:"com.linkedin.common.VectorImage,omitempty"`
-	VectorImage                  *VectorImage `json:"vectorImage,omitempty"`
+	// Sometimes in here, make sure to check both of these fields
+	VectorImage *VectorImage `json:"vectorImage,omitempty"`
 }
 
+// TimePeriod represent a period of time
 type TimePeriod struct {
 	EndDate   *Date `json:"endDate,omitempty"`
 	StartDate *Date `json:"startDate,omitempty"`
@@ -70,6 +77,7 @@ type Date struct {
 	Day   int `json:"day,omitempty"`
 }
 
+// DateRange is kinda like TimePeriod, don't know why linkedin have to use different approach for different object
 type DateRange struct {
 	Start *Date `json:"start,omitempty"`
 	End   *Date `json:"end,omitempty"`
@@ -87,21 +95,30 @@ type Locale struct {
 	AntiAbuseAnnotations []AntiAbuseAnnotation `json:"$anti_abuse_annotations,omitempty"`
 }
 
+// Company contain information about a company
 type Company struct {
 	Industry             map[string]Industry   `json:"industry,omitempty"`
 	IndustryUrns         []string              `json:"industryUrns,omitempty"`
 	AntiAbuseAnnotations []AntiAbuseAnnotation `json:"$anti_abuse_annotations,omitempty"`
 	EntityUrn            string                `json:"entityUrn,omitempty"`
+	MiniCompany          *MiniCompany          `json:"miniCompany,omitempty"`
+	EmployeeCountRange   *EmployeeCountRange   `json:"employeeCountRange,omitempty"`
+	Industries           []string              `json:"industries,omitempty"`
 	Name                 string                `json:"name,omitempty"`
 	Logo                 *Logo                 `json:"logo,omitempty"`
 	RecipeType           string                `json:"$recipeType,omitempty"`
 	UniversalName        string                `json:"universalName,omitempty"`
 	URL                  string                `json:"url,omitempty"`
-	EmployeeCountRange   *EmployeeCountRange   `json:"employeeCountRange,omitempty"`
 	ObjectUrn            string                `json:"objectUrn,omitempty"`
 	Showcase             bool                  `json:"showcase,omitempty"`
 	Active               bool                  `json:"active,omitempty"`
 	TrackingID           string                `json:"trackingId,omitempty"`
+}
+
+type EmployeeCountRange struct {
+	Start      int    `json:"start,omitempty"`
+	RecipeType string `json:"$recipeType,omitempty"`
+	End        int    `json:"end,omitempty"`
 }
 
 type Industry struct {
@@ -135,4 +152,15 @@ type Country struct {
 type Location struct {
 	PreferredGeoPlace string `json:"preferredGeoPlace,omitempty"`
 	CountryCode       string `json:"countryCode,omitempty"`
+}
+
+type MiniCompany struct {
+	ObjectUrn     string `json:"objectUrn,omitempty"`
+	EntityUrn     string `json:"entityUrn,omitempty"`
+	Name          string `json:"name,omitempty"`
+	Showcase      bool   `json:"showcase,omitempty"`
+	Active        bool   `json:"active,omitempty"`
+	Logo          *Logo  `json:"logo,omitempty"`
+	UniversalName string `json:"universalName,omitempty"`
+	TrackingID    string `json:"trackingId,omitempty"`
 }
