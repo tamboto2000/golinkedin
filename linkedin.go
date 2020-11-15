@@ -4,7 +4,6 @@
 // Not all object is documented or present because Franklin Collin Tamboto, the original author, does not fully understand the purpose
 // of some object returned by Linkedin internal API, and because the nature of Linkedin internal API that treat almost every object as
 // optional, empty field or object will not be returned by Linkedin internal API, so some object or fields might be missing.
-// Because I have some rookie mistake when I try to publish this package, the first stable release will be v1.1.0, not v1.0.0.
 // Feel free to fork and contribute!
 package linkedin
 
