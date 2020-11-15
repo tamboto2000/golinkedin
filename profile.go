@@ -103,6 +103,12 @@ func (ln *Linkedin) ProfileByUsername(username string) (*ProfileNode, error) {
 	return profile, nil
 }
 
+// ProfileID return profile's ID, parsed from EntityURN
+func (p *ProfileNode) ProfileID() string {
+	return parseProfileID(p.Elements[0].EntityUrn)
+}
+
+// Organizations prepare OrganizarionNode for cursoring
 func (p *ProfileNode) Organizations() *OrganizationNode {
 	profileID := parseProfileID(p.Elements[0].EntityUrn)
 	org := p.Elements[0].ProfileOrganizations
@@ -112,6 +118,7 @@ func (p *ProfileNode) Organizations() *OrganizationNode {
 	return org
 }
 
+// Educations prepare EducationNode for cursoring
 func (p *ProfileNode) Educations() *EducationNode {
 	profileID := parseProfileID(p.Elements[0].EntityUrn)
 	educations := p.Elements[0].ProfileEducations
@@ -121,6 +128,7 @@ func (p *ProfileNode) Educations() *EducationNode {
 	return educations
 }
 
+// Certifications prepare CertificationNode for cursoring
 func (p *ProfileNode) Certifications() *CertificationNode {
 	profileID := parseProfileID(p.Elements[0].EntityUrn)
 	cert := p.Elements[0].ProfileCertifications
@@ -130,6 +138,7 @@ func (p *ProfileNode) Certifications() *CertificationNode {
 	return cert
 }
 
+// Skills prepare SkillNode for cursoring
 func (p *ProfileNode) Skills() *SkillNode {
 	profileID := parseProfileID(p.Elements[0].EntityUrn)
 	s := p.Elements[0].ProfileSkills
@@ -139,6 +148,7 @@ func (p *ProfileNode) Skills() *SkillNode {
 	return s
 }
 
+// Honors prepare HonorNode for cursoring
 func (p *ProfileNode) Honors() *HonorNode {
 	profileID := parseProfileID(p.Elements[0].EntityUrn)
 	honor := p.Elements[0].ProfileHonors
@@ -148,6 +158,7 @@ func (p *ProfileNode) Honors() *HonorNode {
 	return honor
 }
 
+// PositionGroups prepare PositionGroups for cursoring
 func (p *ProfileNode) PositionGroups() *PositionGroupNode {
 	profileID := parseProfileID(p.Elements[0].EntityUrn)
 	post := p.Elements[0].ProfilePositionGroups
