@@ -69,6 +69,15 @@ const (
 	All  = "all"
 )
 
+// Languages
+const (
+	LangEnglish    = "en"
+	LangIndonesian = "in"
+	LangChinese    = "zh"
+	LangOther      = "_o"
+	LangJapanese   = "ja"
+)
+
 // PeopleSearchFilter is filter for people search.
 // Query string representation:
 //  List(
@@ -76,6 +85,7 @@ const (
 // 	 pastCompany->2145443|225166,
 // 	 geoUrn->102478259|90010101|90010103,
 // 	 industry->41|96,
+//   profileLanguage->en|in|zh|_o|ja,
 // 	 network->F|S,
 // 	 profileLanguage->fr,
 // 	 school->12953|456070,
