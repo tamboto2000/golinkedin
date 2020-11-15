@@ -27,4 +27,9 @@ func main() {
 	if err := searchIndustry(ln, "Bank"); err != nil {
 		panic(err.Error())
 	}
+
+	// search school
+	if err := searchSchool(ln, "University"); err != nil {
+		panic(err.Error())
+	}
 }

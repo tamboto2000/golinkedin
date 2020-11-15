@@ -52,7 +52,8 @@ var DefaultGeoQueryContext = &QueryContext{
 
 // Values of param useCase
 const (
-	GeoAbbreviated = "GEO_ABBREVIATED"
+	GeoAbbreviated    = "GEO_ABBREVIATED"
+	MarketplaceSkills = "MARKETPLACE_SKILLS"
 )
 
 // Values of param type
@@ -62,6 +63,7 @@ const (
 	TConnections = "CONNECTIONS"
 	TIndustry    = "INDUSTRY"
 	TSchool      = "SCHOOL"
+	TSkill       = "SKILL"
 )
 
 // Values of param q, not to be confused with tag `q` on param struct or QueryContext
@@ -363,4 +365,29 @@ func (ln *Linkedin) SearchSchool(keywords string) (*SchoolNode, error) {
 	schoolNode.Keywords = keywords
 
 	return schoolNode, nil
+}
+
+// SearchService search service by keywords
+func (ln *Linkedin) SearchService(keywords string) (*ServiceNode, error) {
+	raw, err := ln.get("/typeahead/hitsV2", url.Values{
+		"keywords": {keywords},
+		"origin":   {OOther},
+		"q":        {Type},
+		"type":     {TSkill},
+		"useCase":  {MarketplaceSkills},
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	svcNode := new(ServiceNode)
+	if err := json.Unmarshal(raw, svcNode); err != nil {
+		return nil, err
+	}
+
+	svcNode.ln = ln
+	svcNode.Keywords = keywords
+
+	return svcNode, nil
 }
