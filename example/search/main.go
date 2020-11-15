@@ -32,4 +32,9 @@ func main() {
 	if err := searchSchool(ln, "University"); err != nil {
 		panic(err.Error())
 	}
+
+	// search service
+	if err := searchService(ln, "Manager"); err != nil {
+		panic(err.Error())
+	}
 }
