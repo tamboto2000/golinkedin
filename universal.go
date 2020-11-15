@@ -128,21 +128,6 @@ type Industry struct {
 	CompanyNameRequired *bool  `json:"companyNameRequired,omitempty"`
 }
 
-type GeoLocation struct {
-	Geo        Geo    `json:"geo,omitempty"`
-	GeoUrn     string `json:"geoUrn,omitempty"`
-	RecipeType string `json:"$recipeType,omitempty"`
-}
-
-type Geo struct {
-	CountryUrn                             string   `json:"countryUrn,omitempty"`
-	Country                                *Country `json:"country,omitempty"`
-	DefaultLocalizedNameWithoutCountryName string   `json:"defaultLocalizedNameWithoutCountryName,omitempty"`
-	EntityUrn                              string   `json:"entityUrn,omitempty"`
-	RecipeType                             string   `json:"$recipeType,omitempty"`
-	DefaultLocalizedName                   string   `json:"defaultLocalizedName,omitempty"`
-}
-
 type Country struct {
 	RecipeType           string `json:"$recipeType,omitempty"`
 	EntityUrn            string `json:"entityUrn,omitempty"`

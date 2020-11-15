@@ -3,7 +3,7 @@
 // As mentioned above, the purpose of this package is only for scraping, so there is no method for create, update, or delete data.
 // Not all object is documented or present because Franklin Collin Tamboto, the original author, does not fully understand the purpose
 // of some object returned by Linkedin internal API, and because the nature of Linkedin internal API that treat almost every object as
-// optional, empty field or object will not be presented by Linkedin internal API.
+// optional, empty field or object will not be returned by Linkedin internal API, so some object or fields might be missing.
 // Feel free to fork and contribute!
 package linkedin
 
@@ -12,6 +12,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 )
 
@@ -69,7 +70,10 @@ func (ln *Linkedin) get(path string, q url.Values) ([]byte, error) {
 	}
 
 	if q != nil {
-		uri.RawQuery = q.Encode()
+		rawQuery := strings.ReplaceAll(q.Encode(), "%28", "(")
+		rawQuery = strings.ReplaceAll(rawQuery, "%29", ")")
+		rawQuery = strings.ReplaceAll(rawQuery, "%2C", ",")
+		uri.RawQuery = rawQuery
 	}
 
 	req, err := http.NewRequest("GET", uri.String(), nil)
@@ -77,14 +81,13 @@ func (ln *Linkedin) get(path string, q url.Values) ([]byte, error) {
 		return nil, err
 	}
 
-	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Accept-Language", "en-US,en;q=0.5")
-	req.Header.Add("Connection", "keep-alive")
-	// req.Header.Add("Cookie", c.cookie)
-	req.Header.Add("Host", "www.linkedin.com")
-	req.Header.Add("Upgrade-Insecure-Requests", "1")
-	req.Header.Add("User-Agent", userAgent)
-	req.Header.Add("csrf-token", ln.jsessionid())
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("Accept-Language", "en-US,en;q=0.5")
+	req.Header.Set("Connection", "keep-alive")
+	req.Header.Set("Upgrade-Insecure-Requests", "1")
+	req.Header.Set("x-restli-protocol-version", "2.0.0")
+	req.Header.Set("User-Agent", userAgent)
+	req.Header.Set("csrf-token", ln.jsessionid())
 
 	for _, cookie := range ln.cookies {
 		req.AddCookie(cookie)

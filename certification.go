@@ -39,8 +39,9 @@ func (c *CertificationNode) SetLinkedin(ln *Linkedin) {
 	c.ln = ln
 }
 
-// Next cursoring educations.
-// New certifications stored in CertificationNode.Elements
+// Next cursoring certifications.
+// New data stored in CertificationNode.Elements.
+// Everytime Next() get called, elements will be refreshed with new data
 func (c *CertificationNode) Next() bool {
 	start := strconv.Itoa(c.Paging.Start)
 	count := strconv.Itoa(c.Paging.Count)
