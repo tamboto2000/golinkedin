@@ -222,7 +222,7 @@ func composeFilter(obj interface{}) string {
 	return filter.str()
 }
 
-// SearchGeo search geolocation based on keyword. You can add custom QueryContext
+// SearchGeo search geolocation by keyword. You can add custom QueryContext
 func (ln *Linkedin) SearchGeo(keyword string, qctx *QueryContext) (*GeoNode, error) {
 	if qctx == nil {
 		qctx = DefaultGeoQueryContext
@@ -250,4 +250,9 @@ func (ln *Linkedin) SearchGeo(keyword string, qctx *QueryContext) (*GeoNode, err
 	geoNode.Keywords = keyword
 
 	return geoNode, nil
+}
+
+// SearchCompany search companies by keyword
+func (ln *Linkedin) SearchCompany(keyword string) (*CompanyNode, error) {
+	return nil, nil
 }

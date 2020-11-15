@@ -37,10 +37,6 @@ type Geo struct {
 	TrackingID                             string   `json:"trackingId,omitempty"`
 }
 
-type Text struct {
-	Text string `json:"text,omitempty"`
-}
-
 type Metadata struct {
 	Type string `json:"type,omitempty"`
 	ID   string `json:"id,omitempty"`

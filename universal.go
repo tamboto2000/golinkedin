@@ -95,26 +95,6 @@ type Locale struct {
 	AntiAbuseAnnotations []AntiAbuseAnnotation `json:"$anti_abuse_annotations,omitempty"`
 }
 
-// Company contain information about a company
-type Company struct {
-	Industry             map[string]Industry   `json:"industry,omitempty"`
-	IndustryUrns         []string              `json:"industryUrns,omitempty"`
-	AntiAbuseAnnotations []AntiAbuseAnnotation `json:"$anti_abuse_annotations,omitempty"`
-	EntityUrn            string                `json:"entityUrn,omitempty"`
-	MiniCompany          *MiniCompany          `json:"miniCompany,omitempty"`
-	EmployeeCountRange   *EmployeeCountRange   `json:"employeeCountRange,omitempty"`
-	Industries           []string              `json:"industries,omitempty"`
-	Name                 string                `json:"name,omitempty"`
-	Logo                 *Logo                 `json:"logo,omitempty"`
-	RecipeType           string                `json:"$recipeType,omitempty"`
-	UniversalName        string                `json:"universalName,omitempty"`
-	URL                  string                `json:"url,omitempty"`
-	ObjectUrn            string                `json:"objectUrn,omitempty"`
-	Showcase             bool                  `json:"showcase,omitempty"`
-	Active               bool                  `json:"active,omitempty"`
-	TrackingID           string                `json:"trackingId,omitempty"`
-}
-
 type EmployeeCountRange struct {
 	Start      int    `json:"start,omitempty"`
 	RecipeType string `json:"$recipeType,omitempty"`
@@ -148,4 +128,8 @@ type MiniCompany struct {
 	Logo          *Logo  `json:"logo,omitempty"`
 	UniversalName string `json:"universalName,omitempty"`
 	TrackingID    string `json:"trackingId,omitempty"`
+}
+
+type Text struct {
+	Text string `json:"text,omitempty"`
 }
