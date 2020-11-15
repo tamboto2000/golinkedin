@@ -60,6 +60,7 @@ const (
 	TGeo         = "GEO"
 	TCompany     = "COMPANY"
 	TConnections = "CONNECTIONS"
+	TIndustry    = "INDUSTRY"
 )
 
 // Values of param q, not to be confused with tag `q` on param struct or QueryContext
@@ -303,4 +304,28 @@ func (ln *Linkedin) SearchPeople(keywords string) (*PeopleNode, error) {
 	peopleNode.Keywords = keywords
 
 	return peopleNode, nil
+}
+
+// SearchIndustry search industries by keywords
+func (ln *Linkedin) SearchIndustry(keywords string) (*IndustryNode, error) {
+	raw, err := ln.get("/typeahead/hitsV2", url.Values{
+		"keywords": {keywords},
+		"origin":   {OOther},
+		"q":        {Type},
+		"type":     {TIndustry},
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	indNode := new(IndustryNode)
+	if err := json.Unmarshal(raw, indNode); err != nil {
+		return nil, err
+	}
+
+	indNode.ln = ln
+	indNode.Keywords = keywords
+
+	return indNode, nil
 }

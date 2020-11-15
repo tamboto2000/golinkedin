@@ -101,13 +101,6 @@ type EmployeeCountRange struct {
 	End        int    `json:"end,omitempty"`
 }
 
-type Industry struct {
-	Name                string `json:"name,omitempty"`
-	RecipeType          string `json:"$recipeType,omitempty"`
-	EntityUrn           string `json:"entityUrn,omitempty"`
-	CompanyNameRequired *bool  `json:"companyNameRequired,omitempty"`
-}
-
 type Country struct {
 	RecipeType           string `json:"$recipeType,omitempty"`
 	EntityUrn            string `json:"entityUrn,omitempty"`

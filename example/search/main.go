@@ -22,4 +22,9 @@ func main() {
 	if err := searchPeople(ln, "Ikhwan"); err != nil {
 		panic(err.Error())
 	}
+
+	// search industry
+	if err := searchIndustry(ln, "Bank"); err != nil {
+		panic(err.Error())
+	}
 }
