@@ -61,6 +61,7 @@ const (
 	TCompany     = "COMPANY"
 	TConnections = "CONNECTIONS"
 	TIndustry    = "INDUSTRY"
+	TSchool      = "SCHOOL"
 )
 
 // Values of param q, not to be confused with tag `q` on param struct or QueryContext
@@ -338,4 +339,28 @@ func (ln *Linkedin) SearchIndustry(keywords string) (*IndustryNode, error) {
 	indNode.Keywords = keywords
 
 	return indNode, nil
+}
+
+// SearchSchool search school by keywords
+func (ln *Linkedin) SearchSchool(keywords string) (*SchoolNode, error) {
+	raw, err := ln.get("/typeahead/hitsV2", url.Values{
+		"keywords": {keywords},
+		"origin":   {OOther},
+		"q":        {Type},
+		"type":     {TSchool},
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	schoolNode := new(SchoolNode)
+	if err := json.Unmarshal(raw, schoolNode); err != nil {
+		return nil, err
+	}
+
+	schoolNode.ln = ln
+	schoolNode.Keywords = keywords
+
+	return schoolNode, nil
 }

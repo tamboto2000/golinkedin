@@ -135,10 +135,19 @@ type Text struct {
 type Attribute struct {
 	MiniCompany *MiniCompany `json:"miniCompany,omitempty"`
 	MiniProfile *MiniProfile `json:"miniProfile,omitempty"`
+	MiniSchool  *MiniSchool  `json:"miniSchool,omitempty"`
 	SourceType  string       `json:"sourceType,omitempty"`
 }
 
 type Image struct {
 	Attributes                  []Attribute   `json:"attributes,omitempty"`
 	AccessibilityTextAttributes []interface{} `json:"accessibilityTextAttributes,omitempty"`
+}
+
+type MiniSchool struct {
+	Logo       Logo   `json:"logo,omitempty"`
+	SchoolName string `json:"schoolName,omitempty"`
+	ObjectUrn  string `json:"objectUrn,omitempty"`
+	EntityUrn  string `json:"entityUrn,omitempty"`
+	TrackingID string `json:"trackingId,omitempty"`
 }
