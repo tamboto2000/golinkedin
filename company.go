@@ -1,5 +1,11 @@
 package linkedin
 
+import (
+	"encoding/json"
+	"net/url"
+	"strconv"
+)
+
 type CompanyNode struct {
 	Metadata Metadata  `json:"metadata,omitempty"`
 	Elements []Company `json:"elements,omitempty"`
@@ -43,4 +49,45 @@ type Image struct {
 type Attribute struct {
 	MiniCompany *MiniCompany `json:"miniCompany,omitempty"`
 	SourceType  string       `json:"sourceType,omitempty"`
+}
+
+func (comp *CompanyNode) SetLinkedin(ln *Linkedin) {
+	comp.ln = ln
+}
+
+func (comp *CompanyNode) Next() bool {
+	start := strconv.Itoa(comp.Paging.Start)
+	count := strconv.Itoa(comp.Paging.Count)
+	raw, err := comp.ln.get("/typeahead/hitsV2", url.Values{
+		"keywords": {comp.Keywords},
+		"origin":   {Other},
+		"q":        {Type},
+		"type":     {TCompany},
+		"start":    {start},
+		"count":    {count},
+	})
+
+	if err != nil {
+		comp.err = err
+		return false
+	}
+
+	compNode := new(CompanyNode)
+	if err := json.Unmarshal(raw, compNode); err != nil {
+		comp.err = err
+		return false
+	}
+
+	comp.Elements = compNode.Elements
+	comp.Paging.Start = compNode.Paging.Start + compNode.Paging.Count
+
+	if len(comp.Elements) == 0 {
+		return false
+	}
+
+	return true
+}
+
+func (comp *CompanyNode) Error() error {
+	return comp.err
 }

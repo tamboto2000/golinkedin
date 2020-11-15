@@ -58,7 +58,8 @@ const (
 // Values of param type
 const (
 	// I name it TGeo because there is a struct named Geo. God help me...
-	TGeo = "GEO"
+	TGeo     = "GEO"
+	TCompany = "COMPANY"
 )
 
 // Values of param q, not to be confused with tag `q` on param struct or QueryContext
@@ -254,5 +255,24 @@ func (ln *Linkedin) SearchGeo(keyword string, qctx *QueryContext) (*GeoNode, err
 
 // SearchCompany search companies by keyword
 func (ln *Linkedin) SearchCompany(keyword string) (*CompanyNode, error) {
-	return nil, nil
+	raw, err := ln.get("/typeahead/hitsV2", url.Values{
+		"keywords": {keyword},
+		"origin":   {Other},
+		"q":        {Type},
+		"type":     {TCompany},
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	compNode := new(CompanyNode)
+	if err := json.Unmarshal(raw, compNode); err != nil {
+		return nil, err
+	}
+
+	compNode.ln = ln
+	compNode.Keywords = keyword
+
+	return compNode, nil
 }
