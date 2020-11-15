@@ -113,7 +113,7 @@ type PeopleSearchFilter struct {
 // 	 geoVersion->3,
 // 	 bingGeoSubTypeFilters->MARKET_AREA|COUNTRY_REGION|ADMIN_DIVISION_1|CITY,
 //   spellCorrectionEnabled->true,
-//   relatedSearchesEnabled->true,
+//   relatedSearchesEnabled->true
 //  )
 type QueryContext struct {
 	SpellCorrectionEnabled bool     `q:"spellCorrectionEnabled" json:"spellCorrectionEnabled,omitempty"`
