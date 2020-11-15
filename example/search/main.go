@@ -17,4 +17,9 @@ func main() {
 	if err := searchCompany(ln, "Telco"); err != nil {
 		panic(err.Error())
 	}
+
+	// search people
+	if err := searchPeople(ln, "Ikhwan"); err != nil {
+		panic(err.Error())
+	}
 }

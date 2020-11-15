@@ -17,37 +17,37 @@ const (
 
 // Result Type
 const (
-	People = "PEOPLE"
+	RPeople = "PEOPLE"
 )
 
 // Search Origin
 const (
-	// FacetedSearch could be used for people search
-	FacetedSearch = "FACETED_SEARCH"
-	// SwitchSearchVertical could be used for people search
-	SwitchSearchVertical = "SWITCH_SEARCH_VERTICAL"
-	// otther could be used for geo search
-	Other = "OTHER"
+	// OFacetedSearch could be used for people search
+	OFacetedSearch = "FACETED_SEARCH"
+	// OSwitchSearchVertical could be used for people search
+	OSwitchSearchVertical = "SWITCH_SEARCH_VERTICAL"
+	// OOtther could be used for geo search
+	OOther = "OTHER"
 )
 
 // Contact Interest values
 const (
-	BoardMember = "boardMember"
-	ProBono     = "proBono"
+	CIBoardMember = "boardMember"
+	CiProBono     = "proBono"
 )
 
 // Geo Sub Type Filters
 const (
-	MarketArea     = "MARKET_AREA"
-	CountryRegion  = "COUNTRY_REGION"
-	AdminDivision1 = "ADMIN_DIVISION_1"
-	City           = "CITY"
+	GMarketArea     = "MARKET_AREA"
+	GCountryRegion  = "COUNTRY_REGION"
+	GAdminDivision1 = "ADMIN_DIVISION_1"
+	GCity           = "CITY"
 )
 
 // DefaultGeoQueryContext is default query context for geo search
 var DefaultGeoQueryContext = &QueryContext{
 	GeoVersion:            3,
-	BingGeoSubTypeFilters: []string{MarketArea, CountryRegion, AdminDivision1, City},
+	BingGeoSubTypeFilters: []string{GMarketArea, GCountryRegion, GAdminDivision1, GCity},
 }
 
 // Values of param useCase
@@ -57,9 +57,9 @@ const (
 
 // Values of param type
 const (
-	// I name it TGeo because there is a struct named Geo. God help me...
-	TGeo     = "GEO"
-	TCompany = "COMPANY"
+	TGeo         = "GEO"
+	TCompany     = "COMPANY"
+	TConnections = "CONNECTIONS"
 )
 
 // Values of param q, not to be confused with tag `q` on param struct or QueryContext
@@ -223,14 +223,14 @@ func composeFilter(obj interface{}) string {
 	return filter.str()
 }
 
-// SearchGeo search geolocation by keyword. You can add custom QueryContext
-func (ln *Linkedin) SearchGeo(keyword string, qctx *QueryContext) (*GeoNode, error) {
+// SearchGeo search geolocation by keywords. You can add custom QueryContext
+func (ln *Linkedin) SearchGeo(keywords string, qctx *QueryContext) (*GeoNode, error) {
 	if qctx == nil {
 		qctx = DefaultGeoQueryContext
 	}
 	raw, err := ln.get("/typeahead/hitsV2", url.Values{
-		"keywords":     {keyword},
-		"origin":       {Other},
+		"keywords":     {keywords},
+		"origin":       {OOther},
 		"q":            {Type},
 		"queryContext": {composeFilter(qctx)},
 		"type":         {TGeo},
@@ -248,16 +248,16 @@ func (ln *Linkedin) SearchGeo(keyword string, qctx *QueryContext) (*GeoNode, err
 
 	geoNode.ln = ln
 	geoNode.QueryContext = qctx
-	geoNode.Keywords = keyword
+	geoNode.Keywords = keywords
 
 	return geoNode, nil
 }
 
-// SearchCompany search companies by keyword
-func (ln *Linkedin) SearchCompany(keyword string) (*CompanyNode, error) {
+// SearchCompany search companies by keywords
+func (ln *Linkedin) SearchCompany(keywords string) (*CompanyNode, error) {
 	raw, err := ln.get("/typeahead/hitsV2", url.Values{
-		"keywords": {keyword},
-		"origin":   {Other},
+		"keywords": {keywords},
+		"origin":   {OOther},
 		"q":        {Type},
 		"type":     {TCompany},
 	})
@@ -272,7 +272,35 @@ func (ln *Linkedin) SearchCompany(keyword string) (*CompanyNode, error) {
 	}
 
 	compNode.ln = ln
-	compNode.Keywords = keyword
+	compNode.Keywords = keywords
 
 	return compNode, nil
+}
+
+// SearchPeople search people by keywords.
+// It's similiar to Profile, but with simpler and compact data.
+// This API is actually for people search people filter, on section "Connections of".
+// I call this as SearchPeople because it is similiar to Profile, but with simpler and compact data.
+// It's kinda ambiguous if I call it SearchConnections.
+func (ln *Linkedin) SearchPeople(keywords string) (*PeopleNode, error) {
+	raw, err := ln.get("/typeahead/hitsV2", url.Values{
+		"keywords": {keywords},
+		"origin":   {OOther},
+		"q":        {Type},
+		"type":     {TConnections},
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	peopleNode := new(PeopleNode)
+	if err := json.Unmarshal(raw, peopleNode); err != nil {
+		return nil, err
+	}
+
+	peopleNode.ln = ln
+	peopleNode.Keywords = keywords
+
+	return peopleNode, nil
 }

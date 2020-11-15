@@ -42,15 +42,6 @@ type Company struct {
 	Type                 string                `json:"type,omitempty"`
 }
 
-type Image struct {
-	Attributes                  []Attribute   `json:"attributes,omitempty"`
-	AccessibilityTextAttributes []interface{} `json:"accessibilityTextAttributes,omitempty"`
-}
-type Attribute struct {
-	MiniCompany *MiniCompany `json:"miniCompany,omitempty"`
-	SourceType  string       `json:"sourceType,omitempty"`
-}
-
 func (comp *CompanyNode) SetLinkedin(ln *Linkedin) {
 	comp.ln = ln
 }
@@ -60,7 +51,7 @@ func (comp *CompanyNode) Next() bool {
 	count := strconv.Itoa(comp.Paging.Count)
 	raw, err := comp.ln.get("/typeahead/hitsV2", url.Values{
 		"keywords": {comp.Keywords},
-		"origin":   {Other},
+		"origin":   {OOther},
 		"q":        {Type},
 		"type":     {TCompany},
 		"start":    {start},

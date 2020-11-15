@@ -130,6 +130,21 @@ type MiniCompany struct {
 	TrackingID    string `json:"trackingId,omitempty"`
 }
 
+type Picture struct {
+	COMLinkedinCommonVectorImage *VectorImage `json:"com.linkedin.common.VectorImage,omitempty"`
+}
+
 type Text struct {
 	Text string `json:"text,omitempty"`
+}
+
+type Attribute struct {
+	MiniCompany *MiniCompany `json:"miniCompany,omitempty"`
+	MiniProfile *MiniProfile `json:"miniProfile,omitempty"`
+	SourceType  string       `json:"sourceType,omitempty"`
+}
+
+type Image struct {
+	Attributes                  []Attribute   `json:"attributes,omitempty"`
+	AccessibilityTextAttributes []interface{} `json:"accessibilityTextAttributes,omitempty"`
 }

@@ -51,7 +51,7 @@ func (g *GeoNode) Next() bool {
 	count := strconv.Itoa(g.Paging.Count)
 	raw, err := g.ln.get("/typeahead/hitsV2", url.Values{
 		"keywords":     {g.Keywords},
-		"origin":       {Other},
+		"origin":       {OOther},
 		"q":            {Type},
 		"queryContext": {composeFilter(g.QueryContext)},
 		"type":         {TGeo},
