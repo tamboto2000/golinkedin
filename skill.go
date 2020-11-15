@@ -13,8 +13,9 @@ type SkillNode struct {
 	Elements   []Skill `json:"elements,omitempty"`
 	RecipeType string  `json:"$recipeType,omitempty"`
 
-	err error
-	ln  *Linkedin
+	err        error
+	ln         *Linkedin
+	stopCursor bool
 }
 
 type Skill struct {
@@ -29,6 +30,10 @@ func (s *SkillNode) SetLinkedin(ln *Linkedin) {
 }
 
 func (s *SkillNode) Next() bool {
+	if s.stopCursor {
+		return false
+	}
+
 	start := strconv.Itoa(s.Paging.Start)
 	count := strconv.Itoa(s.Paging.Count)
 	raw, err := s.ln.get("/identity/profiles/"+s.ProfileID+"/skills", url.Values{
@@ -52,6 +57,10 @@ func (s *SkillNode) Next() bool {
 
 	if len(s.Elements) == 0 {
 		return false
+	}
+
+	if len(s.Elements) < s.Paging.Count {
+		s.stopCursor = true
 	}
 
 	return true

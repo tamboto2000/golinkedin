@@ -13,8 +13,9 @@ type OrganizationNode struct {
 	RecipeType string         `json:"$recipeType,omitempty"`
 	Elements   []Organization `json:"elements,omitempty"`
 
-	err error
-	ln  *Linkedin
+	err        error
+	ln         *Linkedin
+	stopCursor bool
 }
 
 type Organization struct {
@@ -37,6 +38,10 @@ func (org *OrganizationNode) SetLinkedin(ln *Linkedin) {
 // Next cursoring educations.
 // New certifications stored in OrganizationNode.Elements
 func (org *OrganizationNode) Next() bool {
+	if org.stopCursor {
+		return false
+	}
+
 	start := strconv.Itoa(org.Paging.Start)
 	count := strconv.Itoa(org.Paging.Count)
 	raw, err := org.ln.get("/identity/profiles/"+org.ProfileID+"/organizations", url.Values{
@@ -60,6 +65,10 @@ func (org *OrganizationNode) Next() bool {
 
 	if len(org.Elements) == 0 {
 		return false
+	}
+
+	if len(org.Elements) < org.Paging.Count {
+		org.stopCursor = true
 	}
 
 	return true

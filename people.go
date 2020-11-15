@@ -12,8 +12,9 @@ type PeopleNode struct {
 	Paging   Paging   `json:"paging,omitempty"`
 	Keywords string   `json:"keywords,omitempty"`
 
-	err error
-	ln  *Linkedin
+	err        error
+	ln         *Linkedin
+	stopCursor bool
 }
 
 type People struct {
@@ -43,6 +44,10 @@ func (p *PeopleNode) SetLinkedin(ln *Linkedin) {
 }
 
 func (p *PeopleNode) Next() bool {
+	if p.stopCursor {
+		return false
+	}
+
 	start := strconv.Itoa(p.Paging.Start)
 	count := strconv.Itoa(p.Paging.Count)
 	raw, err := p.ln.get("/typeahead/hitsV2", url.Values{
@@ -70,6 +75,10 @@ func (p *PeopleNode) Next() bool {
 
 	if len(p.Elements) == 0 {
 		return false
+	}
+
+	if len(p.Elements) < p.Paging.Count {
+		p.stopCursor = true
 	}
 
 	return true

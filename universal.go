@@ -1,6 +1,7 @@
 package linkedin
 
-// Paging control resource cursoring
+// Paging control resource cursoring.
+// It is highly advised to NOT CHANGE ANY OF THE VALUES OF Paging as it can cause infinite loop when cursoring
 type Paging struct {
 	// set entities per page
 	Count int `json:"count,omitempty"`

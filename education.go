@@ -13,8 +13,9 @@ type EducationNode struct {
 	Elements  []Education `json:"elements,omitempty"`
 	Paging    Paging      `json:"paging,omitempty"`
 
-	err error
-	ln  *Linkedin
+	err        error
+	ln         *Linkedin
+	stopCursor bool
 }
 
 type Education struct {
@@ -61,6 +62,10 @@ func (edu *EducationNode) SetLinkedin(ln *Linkedin) {
 // Next cursoring educations.
 // New educations stored in EducationNode.Elements
 func (edu *EducationNode) Next() bool {
+	if edu.stopCursor {
+		return false
+	}
+
 	start := strconv.Itoa(edu.Paging.Start)
 	count := strconv.Itoa(edu.Paging.Count)
 	raw, err := edu.ln.get("/identity/profiles/"+edu.ProfileID+"/educations", url.Values{
@@ -84,6 +89,10 @@ func (edu *EducationNode) Next() bool {
 
 	if len(edu.Elements) == 0 {
 		return false
+	}
+
+	if len(edu.Elements) < edu.Paging.Count {
+		edu.stopCursor = true
 	}
 
 	return true

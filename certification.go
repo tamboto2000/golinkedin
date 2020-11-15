@@ -13,8 +13,9 @@ type CertificationNode struct {
 	RecipeType string          `json:"$recipeType,omitempty"`
 	Elements   []Certification `json:"elements,omitempty"`
 
-	err error
-	ln  *Linkedin
+	err        error
+	ln         *Linkedin
+	stopCursor bool
 }
 
 type Certification struct {
@@ -43,6 +44,10 @@ func (c *CertificationNode) SetLinkedin(ln *Linkedin) {
 // New data stored in CertificationNode.Elements.
 // Everytime Next() get called, elements will be refreshed with new data
 func (c *CertificationNode) Next() bool {
+	if c.stopCursor {
+		return false
+	}
+
 	start := strconv.Itoa(c.Paging.Start)
 	count := strconv.Itoa(c.Paging.Count)
 	raw, err := c.ln.get("/identity/profiles/"+c.ProfileID+"/certifications", url.Values{
@@ -66,6 +71,10 @@ func (c *CertificationNode) Next() bool {
 
 	if len(c.Elements) == 0 {
 		return false
+	}
+
+	if len(c.Elements) < c.Paging.Count {
+		c.stopCursor = true
 	}
 
 	return true

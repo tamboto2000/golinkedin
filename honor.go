@@ -12,8 +12,9 @@ type HonorNode struct {
 	RecipeType string  `json:"$recipeType,omitempty"`
 	Elements   []Honor `json:"elements,omitempty"`
 
-	err error
-	ln  *Linkedin
+	err        error
+	ln         *Linkedin
+	stopCursor bool
 }
 
 type Honor struct {
@@ -45,6 +46,10 @@ func (hn *HonorNode) SetLinkedin(ln *Linkedin) {
 }
 
 func (hn *HonorNode) Next() bool {
+	if hn.stopCursor {
+		return false
+	}
+
 	start := strconv.Itoa(hn.Paging.Start)
 	count := strconv.Itoa(hn.Paging.Count)
 	raw, err := hn.ln.get("/identity/profiles/"+hn.ProfileID+"/honors", url.Values{
@@ -68,6 +73,10 @@ func (hn *HonorNode) Next() bool {
 
 	if len(hn.Elements) == 0 {
 		return false
+	}
+
+	if len(hn.Elements) < hn.Paging.Count {
+		hn.stopCursor = true
 	}
 
 	return true

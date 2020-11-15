@@ -12,8 +12,9 @@ type CompanyNode struct {
 	Paging   Paging    `json:"paging,omitempty"`
 	Keywords string    `json:"keywords,omitempty"`
 
-	err error
-	ln  *Linkedin
+	err        error
+	ln         *Linkedin
+	stopCursor bool
 }
 
 // Company contain information about a company
@@ -47,6 +48,10 @@ func (comp *CompanyNode) SetLinkedin(ln *Linkedin) {
 }
 
 func (comp *CompanyNode) Next() bool {
+	if comp.stopCursor {
+		return false
+	}
+
 	start := strconv.Itoa(comp.Paging.Start)
 	count := strconv.Itoa(comp.Paging.Count)
 	raw, err := comp.ln.get("/typeahead/hitsV2", url.Values{
@@ -74,6 +79,10 @@ func (comp *CompanyNode) Next() bool {
 
 	if len(comp.Elements) == 0 {
 		return false
+	}
+
+	if len(comp.Elements) < comp.Paging.Count {
+		comp.stopCursor = true
 	}
 
 	return true

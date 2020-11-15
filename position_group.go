@@ -12,8 +12,9 @@ type PositionGroupNode struct {
 	RecipeType string          `json:"$recipeType,omitempty"`
 	Elements   []PositionGroup `json:"elements,omitempty"`
 
-	err error
-	ln  *Linkedin
+	err        error
+	ln         *Linkedin
+	stopCursor bool
 }
 
 type PositionGroup struct {
@@ -67,6 +68,10 @@ func (post *PositionGroupNode) SetLinkedin(ln *Linkedin) {
 }
 
 func (post *PositionGroupNode) Next() bool {
+	if post.stopCursor {
+		return false
+	}
+
 	start := strconv.Itoa(post.Paging.Start)
 	count := strconv.Itoa(post.Paging.Count)
 	raw, err := post.ln.get("/identity/profiles/"+post.ProfileID+"/positionGroups", url.Values{
@@ -90,6 +95,10 @@ func (post *PositionGroupNode) Next() bool {
 
 	if len(post.Elements) == 0 {
 		return false
+	}
+
+	if len(post.Elements) < post.Paging.Count {
+		post.stopCursor = true
 	}
 
 	return true

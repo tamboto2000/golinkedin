@@ -13,8 +13,9 @@ type GeoNode struct {
 	QueryContext *QueryContext `json:"queryContext,omitempty"`
 	Keywords     string        `json:"keywords,omitempty"`
 
-	err error
-	ln  *Linkedin
+	err        error
+	ln         *Linkedin
+	stopCursor bool
 }
 
 type GeoLocation struct {
@@ -47,6 +48,10 @@ func (g *GeoNode) SetLinkedin(ln *Linkedin) {
 }
 
 func (g *GeoNode) Next() bool {
+	if g.stopCursor {
+		return false
+	}
+
 	start := strconv.Itoa(g.Paging.Start)
 	count := strconv.Itoa(g.Paging.Count)
 	raw, err := g.ln.get("/typeahead/hitsV2", url.Values{
@@ -76,6 +81,10 @@ func (g *GeoNode) Next() bool {
 
 	if len(g.Elements) == 0 {
 		return false
+	}
+
+	if len(g.Elements) < g.Paging.Count {
+		g.stopCursor = true
 	}
 
 	return true

@@ -12,8 +12,9 @@ type IndustryNode struct {
 	Paging   Paging     `json:"paging,omitempty"`
 	Keywords string     `json:"keywords,omitempty"`
 
-	err error
-	ln  *Linkedin
+	err        error
+	ln         *Linkedin
+	stopCursor bool
 }
 
 type Industry struct {
@@ -34,6 +35,10 @@ func (ind *IndustryNode) SetLinkedin(ln *Linkedin) {
 }
 
 func (ind *IndustryNode) Next() bool {
+	if ind.stopCursor {
+		return false
+	}
+
 	start := strconv.Itoa(ind.Paging.Start)
 	count := strconv.Itoa(ind.Paging.Count)
 	raw, err := ind.ln.get("/typeahead/hitsV2", url.Values{
@@ -61,6 +66,10 @@ func (ind *IndustryNode) Next() bool {
 
 	if len(ind.Elements) == 0 {
 		return false
+	}
+
+	if len(ind.Elements) < ind.Paging.Count {
+		ind.stopCursor = true
 	}
 
 	return true
