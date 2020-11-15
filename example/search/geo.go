@@ -1,13 +1,16 @@
 package main
 
 import (
+	"encoding/json"
+	"os"
+
 	"github.com/tamboto2000/linkedin"
 )
 
-func searchGeo(ln *linkedin.Linkedin, keyword string) (*linkedin.GeoNode, error) {
+func searchGeo(ln *linkedin.Linkedin, keyword string) error {
 	geoNode, err := ln.SearchGeo(keyword, linkedin.DefaultGeoQueryContext)
 	if err != nil {
-		panic(err.Error())
+		return err
 	}
 
 	geos := make([]linkedin.Geo, 0)
@@ -19,6 +22,12 @@ func searchGeo(ln *linkedin.Linkedin, keyword string) (*linkedin.GeoNode, error)
 	}
 
 	geoNode.Elements = geos
+	f, err := os.Create("geos.json")
+	if err != nil {
+		return err
+	}
 
-	return geoNode, nil
+	defer f.Close()
+
+	return json.NewEncoder(f).Encode(geoNode)
 }
