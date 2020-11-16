@@ -53,6 +53,13 @@ type School struct {
 	Text          Text   `json:"text,omitempty"`
 	DashTargetUrn string `json:"dashTargetUrn,omitempty"`
 	Type          string `json:"type,omitempty"`
+	TrackingUrn   string `json:"trackingUrn,omitempty"`
+	Title         Title  `json:"title,omitempty"`
+}
+
+type Title struct {
+	TextDirection string `json:"textDirection,omitempty"`
+	Text          string `json:"text,omitempty"`
 }
 
 type ProfileTreasuryMediaEducation struct {

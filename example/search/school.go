@@ -15,13 +15,13 @@ func searchSchool(ln *linkedin.Linkedin, keywords string) error {
 
 	schs := make([]linkedin.School, 0)
 	for schNode.Next() {
-		schs = append(schs, schNode.Elements...)
+		schs = append(schs, schNode.Elements[0].Elements...)
 		if len(schs) >= 20 {
 			break
 		}
 	}
 
-	schNode.Elements = schs
+	schNode.Elements[0].Elements = schs
 	f, err := os.Create("schools.json")
 	if err != nil {
 		return err

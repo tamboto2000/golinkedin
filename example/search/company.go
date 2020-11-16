@@ -15,13 +15,13 @@ func searchCompany(ln *linkedin.Linkedin, keyword string) error {
 
 	comps := make([]linkedin.Company, 0)
 	for compNode.Next() {
-		comps = append(comps, compNode.Elements...)
+		comps = append(comps, compNode.Elements[0].Elements...)
 		if len(comps) >= 20 {
 			break
 		}
 	}
 
-	compNode.Elements = comps
+	compNode.Elements[0].Elements = comps
 	f, err := os.Create("companies.json")
 	if err != nil {
 		return err

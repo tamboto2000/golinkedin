@@ -1,11 +1,5 @@
 package linkedin
 
-import (
-	"encoding/json"
-	"net/url"
-	"strconv"
-)
-
 type PeopleNode struct {
 	Metadata Metadata `json:"metadata,omitempty"`
 	Elements []People `json:"elements,omitempty"`
@@ -39,51 +33,51 @@ type MiniProfile struct {
 	TrackingID       string  `json:"trackingId,omitempty"`
 }
 
-func (p *PeopleNode) SetLinkedin(ln *Linkedin) {
-	p.ln = ln
-}
+// func (p *PeopleNode) SetLinkedin(ln *Linkedin) {
+// 	p.ln = ln
+// }
 
-func (p *PeopleNode) Next() bool {
-	if p.stopCursor {
-		return false
-	}
+// func (p *PeopleNode) Next() bool {
+// 	if p.stopCursor {
+// 		return false
+// 	}
 
-	start := strconv.Itoa(p.Paging.Start)
-	count := strconv.Itoa(p.Paging.Count)
-	raw, err := p.ln.get("/typeahead/hitsV2", url.Values{
-		"keywords": {p.Keywords},
-		"origin":   {OOther},
-		"q":        {Type},
-		"type":     {TConnections},
-		"start":    {start},
-		"count":    {count},
-	})
+// 	start := strconv.Itoa(p.Paging.Start)
+// 	count := strconv.Itoa(p.Paging.Count)
+// 	raw, err := p.ln.get("/typeahead/hitsV2", url.Values{
+// 		"keywords": {p.Keywords},
+// 		"origin":   {OOther},
+// 		"q":        {Type},
+// 		"type":     {TConnections},
+// 		"start":    {start},
+// 		"count":    {count},
+// 	})
 
-	if err != nil {
-		p.err = err
-		return false
-	}
+// 	if err != nil {
+// 		p.err = err
+// 		return false
+// 	}
 
-	peopleNode := new(PeopleNode)
-	if err := json.Unmarshal(raw, peopleNode); err != nil {
-		p.err = err
-		return false
-	}
+// 	peopleNode := new(PeopleNode)
+// 	if err := json.Unmarshal(raw, peopleNode); err != nil {
+// 		p.err = err
+// 		return false
+// 	}
 
-	p.Elements = peopleNode.Elements
-	p.Paging.Start = peopleNode.Paging.Start + peopleNode.Paging.Count
+// 	p.Elements = peopleNode.Elements
+// 	p.Paging.Start = peopleNode.Paging.Start + peopleNode.Paging.Count
 
-	if len(p.Elements) == 0 {
-		return false
-	}
+// 	if len(p.Elements) == 0 {
+// 		return false
+// 	}
 
-	if len(p.Elements) < p.Paging.Count {
-		p.stopCursor = true
-	}
+// 	if len(p.Elements) < p.Paging.Count {
+// 		p.stopCursor = true
+// 	}
 
-	return true
-}
+// 	return true
+// }
 
-func (p *PeopleNode) Error() error {
-	return p.err
-}
+// func (p *PeopleNode) Error() error {
+// 	return p.err
+// }

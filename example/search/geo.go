@@ -8,7 +8,7 @@ import (
 )
 
 func searchGeo(ln *linkedin.Linkedin, keyword string) error {
-	geoNode, err := ln.SearchGeo(keyword, linkedin.DefaultGeoQueryContext)
+	geoNode, err := ln.SearchGeo(keyword)
 	if err != nil {
 		return err
 	}

@@ -39,9 +39,9 @@ func (svc *ServiceNode) Next() bool {
 	count := strconv.Itoa(svc.Paging.Count)
 	raw, err := svc.ln.get("/typeahead/hitsV2", url.Values{
 		"keywords": {svc.Keywords},
-		"origin":   {OOther},
-		"q":        {Type},
-		"type":     {TSkill},
+		"origin":   {OriginOther},
+		"q":        {QType},
+		"type":     {TypeSkill},
 		"useCase":  {MarketplaceSkills},
 		"start":    {start},
 		"count":    {count},

@@ -7,14 +7,20 @@ import (
 )
 
 type SchoolNode struct {
-	Metadata Metadata `json:"metadata,omitempty"`
-	Elements []School `json:"elements,omitempty"`
-	Paging   Paging   `json:"paging,omitempty"`
-	Keywords string   `json:"keywords,omitempty"`
+	Keywords string              `json:"keywords,omitempty"`
+	Metadata Metadata            `json:"metadata,omitempty"`
+	Elements []SchoolNodeElement `json:"elements,omitempty"`
+	Paging   Paging              `json:"paging,omitempty"`
 
 	err        error
 	ln         *Linkedin
 	stopCursor bool
+}
+
+type SchoolNodeElement struct {
+	ExtendedElements []interface{} `json:"extendedElements,omitempty"`
+	Elements         []School      `json:"elements,omitempty"`
+	Type             string        `json:"type,omitempty"`
 }
 
 func (sch *SchoolNode) SetLinkedin(ln *Linkedin) {
@@ -28,13 +34,14 @@ func (sch *SchoolNode) Next() bool {
 
 	start := strconv.Itoa(sch.Paging.Start)
 	count := strconv.Itoa(sch.Paging.Count)
-	raw, err := sch.ln.get("/typeahead/hitsV2", url.Values{
-		"keywords": {sch.Keywords},
-		"origin":   {OOther},
-		"q":        {Type},
-		"type":     {TSchool},
-		"start":    {start},
-		"count":    {count},
+	raw, err := sch.ln.get("/search/blended", url.Values{
+		"keywords":     {sch.Keywords},
+		"origin":       {OriginSwitchSearchVertical},
+		"q":            {QAll},
+		"start":        {start},
+		"count":        {count},
+		"filters":      {composeFilter(DefaultSearchSchoolFilter)},
+		"queryContext": {composeFilter(DefaultSearchSchoolQueryContext)},
 	})
 
 	if err != nil {
@@ -55,7 +62,7 @@ func (sch *SchoolNode) Next() bool {
 		return false
 	}
 
-	if len(sch.Elements) < sch.Paging.Count {
+	if len(sch.Elements[0].Elements) < sch.Paging.Count {
 		sch.stopCursor = true
 	}
 

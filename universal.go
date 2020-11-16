@@ -113,17 +113,6 @@ type Location struct {
 	CountryCode       string `json:"countryCode,omitempty"`
 }
 
-type MiniCompany struct {
-	ObjectUrn     string `json:"objectUrn,omitempty"`
-	EntityUrn     string `json:"entityUrn,omitempty"`
-	Name          string `json:"name,omitempty"`
-	Showcase      bool   `json:"showcase,omitempty"`
-	Active        bool   `json:"active,omitempty"`
-	Logo          *Logo  `json:"logo,omitempty"`
-	UniversalName string `json:"universalName,omitempty"`
-	TrackingID    string `json:"trackingId,omitempty"`
-}
-
 type Picture struct {
 	COMLinkedinCommonVectorImage *VectorImage `json:"com.linkedin.common.VectorImage,omitempty"`
 }
@@ -136,7 +125,17 @@ type Attribute struct {
 	MiniCompany *MiniCompany `json:"miniCompany,omitempty"`
 	MiniProfile *MiniProfile `json:"miniProfile,omitempty"`
 	MiniSchool  *MiniSchool  `json:"miniSchool,omitempty"`
+	MiniGroup   *MiniGroup   `json:"miniGroup,omitempty"`
 	SourceType  string       `json:"sourceType,omitempty"`
+}
+
+type MiniGroup struct {
+	GroupName        string `json:"groupName,omitempty"`
+	ObjectUrn        string `json:"objectUrn,omitempty"`
+	GroupDescription string `json:"groupDescription,omitempty"`
+	EntityUrn        string `json:"entityUrn,omitempty"`
+	Logo             *Logo  `json:"logo,omitempty"`
+	TrackingID       string `json:"trackingId,omitempty"`
 }
 
 type Image struct {

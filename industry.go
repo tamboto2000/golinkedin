@@ -43,9 +43,9 @@ func (ind *IndustryNode) Next() bool {
 	count := strconv.Itoa(ind.Paging.Count)
 	raw, err := ind.ln.get("/typeahead/hitsV2", url.Values{
 		"keywords": {ind.Keywords},
-		"origin":   {OOther},
-		"q":        {Type},
-		"type":     {TIndustry},
+		"origin":   {OriginOther},
+		"q":        {QType},
+		"type":     {TypeIndustry},
 		"start":    {start},
 		"count":    {count},
 	})

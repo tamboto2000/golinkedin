@@ -7,11 +7,10 @@ import (
 )
 
 type GeoNode struct {
-	Metadata     Metadata      `json:"metadata,omitempty"`
-	Elements     []Geo         `json:"elements,omitempty"`
-	Paging       Paging        `json:"paging,omitempty"`
-	QueryContext *QueryContext `json:"queryContext,omitempty"`
-	Keywords     string        `json:"keywords,omitempty"`
+	Metadata Metadata `json:"metadata,omitempty"`
+	Elements []Geo    `json:"elements,omitempty"`
+	Paging   Paging   `json:"paging,omitempty"`
+	Keywords string   `json:"keywords,omitempty"`
 
 	err        error
 	ln         *Linkedin
@@ -56,10 +55,10 @@ func (g *GeoNode) Next() bool {
 	count := strconv.Itoa(g.Paging.Count)
 	raw, err := g.ln.get("/typeahead/hitsV2", url.Values{
 		"keywords":     {g.Keywords},
-		"origin":       {OOther},
-		"q":            {Type},
-		"queryContext": {composeFilter(g.QueryContext)},
-		"type":         {TGeo},
+		"origin":       {OriginOther},
+		"q":            {QType},
+		"queryContext": {composeFilter(DefaultGeoSearchQueryContext)},
+		"type":         {TypeGeo},
 		"useCase":      {GeoAbbreviated},
 		"start":        {start},
 		"count":        {count},

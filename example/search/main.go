@@ -18,11 +18,6 @@ func main() {
 		panic(err.Error())
 	}
 
-	// search people
-	if err := searchPeople(ln, "Ikhwan"); err != nil {
-		panic(err.Error())
-	}
-
 	// search industry
 	if err := searchIndustry(ln, "Bank"); err != nil {
 		panic(err.Error())
@@ -35,6 +30,11 @@ func main() {
 
 	// search service
 	if err := searchService(ln, "Manager"); err != nil {
+		panic(err.Error())
+	}
+
+	// search groups
+	if err := searchGroup(ln, "ig"); err != nil {
 		panic(err.Error())
 	}
 }

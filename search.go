@@ -17,38 +17,35 @@ const (
 
 // Result Type
 const (
-	RPeople = "PEOPLE"
+	ResultPeople    = "PEOPLE"
+	ResultSchools   = "SCHOOLS"
+	ResultCompanies = "COMPANIES"
+	ResultGroups    = "GROUPS"
 )
 
 // Search Origin
 const (
 	// OFacetedSearch could be used for people search
-	OFacetedSearch = "FACETED_SEARCH"
+	OriginFacetedSearch = "FACETED_SEARCH"
 	// OSwitchSearchVertical could be used for people search
-	OSwitchSearchVertical = "SWITCH_SEARCH_VERTICAL"
+	OriginSwitchSearchVertical = "SWITCH_SEARCH_VERTICAL"
 	// OOtther could be used for geo search
-	OOther = "OTHER"
+	OriginOther = "OTHER"
 )
 
 // Contact Interest values
 const (
-	CIBoardMember = "boardMember"
-	CiProBono     = "proBono"
+	ContactInterestBoardMember = "boardMember"
+	ContactInterestProBono     = "proBono"
 )
 
 // Geo Sub Type Filters
 const (
-	GMarketArea     = "MARKET_AREA"
-	GCountryRegion  = "COUNTRY_REGION"
-	GAdminDivision1 = "ADMIN_DIVISION_1"
-	GCity           = "CITY"
+	GeoSubTypeMarketArea     = "MARKET_AREA"
+	GeoSubTypeCountryRegion  = "COUNTRY_REGION"
+	GeoSubTypeAdminDivision1 = "ADMIN_DIVISION_1"
+	GeoSubTypeCity           = "CITY"
 )
-
-// DefaultGeoQueryContext is default query context for geo search
-var DefaultGeoQueryContext = &QueryContext{
-	GeoVersion:            3,
-	BingGeoSubTypeFilters: []string{GMarketArea, GCountryRegion, GAdminDivision1, GCity},
-}
 
 // Values of param useCase
 const (
@@ -58,18 +55,19 @@ const (
 
 // Values of param type
 const (
-	TGeo         = "GEO"
-	TCompany     = "COMPANY"
-	TConnections = "CONNECTIONS"
-	TIndustry    = "INDUSTRY"
-	TSchool      = "SCHOOL"
-	TSkill       = "SKILL"
+	TypeGeo         = "GEO"
+	TypeCompany     = "COMPANY"
+	TypeConnections = "CONNECTIONS"
+	TypePeople      = "PEOPLE"
+	TypeIndustry    = "INDUSTRY"
+	TypeSchool      = "SCHOOL"
+	TypeSkill       = "SKILL"
 )
 
 // Values of param q, not to be confused with tag `q` on param struct or QueryContext
 const (
-	Type = "type"
-	All  = "all"
+	QType = "type"
+	QAll  = "all"
 )
 
 // Languages
@@ -77,30 +75,56 @@ const (
 	LangEnglish    = "en"
 	LangIndonesian = "in"
 	LangChinese    = "zh"
-	LangOther      = "_o"
 	LangJapanese   = "ja"
+	LangGerman     = "de"
+	LangFrench     = "fr"
+	LangSpanish    = "es"
+	LangPortuguese = "pt"
+	LangOther      = "_o"
 )
 
+// DefaultGeoSearchQueryContext is default query context for geo search
+var DefaultGeoSearchQueryContext = &QueryContext{
+	GeoVersion: 3,
+	BingGeoSubTypeFilters: []string{
+		GeoSubTypeMarketArea,
+		GeoSubTypeCountryRegion,
+		GeoSubTypeAdminDivision1,
+		GeoSubTypeCity,
+	},
+}
+
+// DefaultSearchSchoolFilter used for search school filters param
+var DefaultSearchSchoolFilter = &Filters{
+	ResultType: ResultSchools,
+}
+
+// DefaultSearchSchoolQueryContext used for search school queryContext param
+var DefaultSearchSchoolQueryContext = &QueryContext{
+	SpellCorrectionEnabled: true,
+}
+
+// DefaultSearchCompanyFilter used for search companies filters param
+var DefaultSearchCompanyFilter = &Filters{
+	ResultType: ResultCompanies,
+}
+
+// DefaultSearchCompanyQueryContext used for search companies queryContext param
+var DefaultSearchCompanyQueryContext = &QueryContext{
+	FlagshipSearchIntent: "SEARCH_SRP",
+}
+
+// DefaultSearchGroupFilter used for search groups filters param
+var DefaultSearchGroupFilter = &Filters{
+	ResultType: ResultGroups,
+}
+
+// DefaultSearchGroupQueryContext used for search groups queryContext param
+var DefaultSearchGroupQueryContext = &QueryContext{
+	SpellCorrectionEnabled: true,
+}
+
 // PeopleSearchFilter is filter for people search.
-// Query string representation:
-//  List(
-// 	 currentCompany->1344581|2135950|225166,
-// 	 pastCompany->2145443|225166,
-// 	 geoUrn->102478259|90010101|90010103,
-// 	 industry->41|96,
-//   profileLanguage->en|in|zh|_o|ja,
-// 	 network->F|S,
-// 	 profileLanguage->fr,
-// 	 school->12953|456070,
-// 	 connectionOf->ACoAABjYrYABlGzIXhNI0L2VSJH-hYQs_41qaQ8,
-// 	 contactInterest->boardMember|proBono,
-// 	 resultType->PEOPLE,
-// 	 firstName->Franklin,
-// 	 lastName->Tamboto,
-// 	 title->Sr,
-// 	 company->AAAA,
-// 	 school->AAAA
-//  )
 // I don't know why its structured like that, maybe this is somekind of NoSQL?
 type PeopleSearchFilter struct {
 	CurrentCompany  []int    `q:"currentCompany" json:"currentCompany,omitempty"`
@@ -110,6 +134,7 @@ type PeopleSearchFilter struct {
 	Network         []string `q:"network" json:"network,omitempty"`
 	ProfileLanguage []string `q:"profileLanguage" json:"profileLanguage,omitempty"`
 	School          []int    `q:"school" json:"school,omitempty"`
+	ServiceCategory []string `q:"serviceCategory" json:"serviceCategory,omitempty"`
 	// Profile ID
 	ConnectionOf    string   `q:"connectionOf" json:"connectionOf,omitempty"`
 	ContactInterest []string `q:"contactInterest" json:"contactInterest,omitempty"`
@@ -123,23 +148,17 @@ type PeopleSearchFilter struct {
 	SchoolStr string `q:"schoolStr" json:"schoolStr,omitempty"`
 }
 
-// QueryContext query string representation:
-//  List(
-// 	 geoVersion->3,
-// 	 bingGeoSubTypeFilters->MARKET_AREA|COUNTRY_REGION|ADMIN_DIVISION_1|CITY,
-//   spellCorrectionEnabled->true,
-//   relatedSearchesEnabled->true
-//  )
+// Filters is generic filter used by no filter search, such as school search or company search
+type Filters struct {
+	ResultType string `q:"resultType" json:"resultType,omitempty"`
+}
+
 type QueryContext struct {
 	SpellCorrectionEnabled bool     `q:"spellCorrectionEnabled" json:"spellCorrectionEnabled,omitempty"`
 	RelatedSearchesEnabled bool     `q:"relatedSearchesEnabled" json:"relatedSearchesEnabled,omitempty"`
+	FlagshipSearchIntent   string   `q:"flagshipSearchIntent" json:"flagshipSearchIntent,omitempty"`
 	GeoVersion             int      `q:"geoVersion" json:"geoVersion,omitempty"`
 	BingGeoSubTypeFilters  []string `q:"bingGeoSubTypeFilters" json:"bingGeoSubTypeFilters,omitempty"`
-}
-
-// ComposeFilter parse param or query context to, well, whatever format Linkedin using...
-func ComposeFilter(obj interface{}) string {
-	return composeFilter(obj)
 }
 
 type filter struct {
@@ -237,17 +256,14 @@ func composeFilter(obj interface{}) string {
 	return filter.str()
 }
 
-// SearchGeo search geolocation by keywords. You can add custom QueryContext
-func (ln *Linkedin) SearchGeo(keywords string, qctx *QueryContext) (*GeoNode, error) {
-	if qctx == nil {
-		qctx = DefaultGeoQueryContext
-	}
+// SearchGeo search geolocation by keywords
+func (ln *Linkedin) SearchGeo(keywords string) (*GeoNode, error) {
 	raw, err := ln.get("/typeahead/hitsV2", url.Values{
 		"keywords":     {keywords},
-		"origin":       {OOther},
-		"q":            {Type},
-		"queryContext": {composeFilter(qctx)},
-		"type":         {TGeo},
+		"origin":       {OriginOther},
+		"q":            {QType},
+		"queryContext": {composeFilter(DefaultGeoSearchQueryContext)},
+		"type":         {TypeGeo},
 		"useCase":      {GeoAbbreviated},
 	})
 
@@ -261,7 +277,6 @@ func (ln *Linkedin) SearchGeo(keywords string, qctx *QueryContext) (*GeoNode, er
 	}
 
 	geoNode.ln = ln
-	geoNode.QueryContext = qctx
 	geoNode.Keywords = keywords
 
 	return geoNode, nil
@@ -269,11 +284,12 @@ func (ln *Linkedin) SearchGeo(keywords string, qctx *QueryContext) (*GeoNode, er
 
 // SearchCompany search companies by keywords
 func (ln *Linkedin) SearchCompany(keywords string) (*CompanyNode, error) {
-	raw, err := ln.get("/typeahead/hitsV2", url.Values{
-		"keywords": {keywords},
-		"origin":   {OOther},
-		"q":        {Type},
-		"type":     {TCompany},
+	raw, err := ln.get("/search/blended", url.Values{
+		"keywords":     {keywords},
+		"origin":       {OriginSwitchSearchVertical},
+		"q":            {QAll},
+		"filters":      {composeFilter(DefaultSearchCompanyFilter)},
+		"queryContext": {composeFilter(DefaultSearchCompanyQueryContext)},
 	})
 
 	if err != nil {
@@ -291,41 +307,13 @@ func (ln *Linkedin) SearchCompany(keywords string) (*CompanyNode, error) {
 	return compNode, nil
 }
 
-// SearchPeople search people by keywords.
-// It's similiar to Profile, but with simpler and compact data.
-// This API is actually for people search people filter, on section "Connections of".
-// I call this as SearchPeople because it is similiar to Profile, but with simpler and compact data.
-// It's kinda ambiguous if I call it SearchConnections.
-func (ln *Linkedin) SearchPeople(keywords string) (*PeopleNode, error) {
-	raw, err := ln.get("/typeahead/hitsV2", url.Values{
-		"keywords": {keywords},
-		"origin":   {OOther},
-		"q":        {Type},
-		"type":     {TConnections},
-	})
-
-	if err != nil {
-		return nil, err
-	}
-
-	peopleNode := new(PeopleNode)
-	if err := json.Unmarshal(raw, peopleNode); err != nil {
-		return nil, err
-	}
-
-	peopleNode.ln = ln
-	peopleNode.Keywords = keywords
-
-	return peopleNode, nil
-}
-
 // SearchIndustry search industries by keywords
 func (ln *Linkedin) SearchIndustry(keywords string) (*IndustryNode, error) {
 	raw, err := ln.get("/typeahead/hitsV2", url.Values{
 		"keywords": {keywords},
-		"origin":   {OOther},
-		"q":        {Type},
-		"type":     {TIndustry},
+		"origin":   {OriginOther},
+		"q":        {QType},
+		"type":     {TypeIndustry},
 	})
 
 	if err != nil {
@@ -345,11 +333,12 @@ func (ln *Linkedin) SearchIndustry(keywords string) (*IndustryNode, error) {
 
 // SearchSchool search school by keywords
 func (ln *Linkedin) SearchSchool(keywords string) (*SchoolNode, error) {
-	raw, err := ln.get("/typeahead/hitsV2", url.Values{
-		"keywords": {keywords},
-		"origin":   {OOther},
-		"q":        {Type},
-		"type":     {TSchool},
+	raw, err := ln.get("/search/blended", url.Values{
+		"keywords":     {keywords},
+		"origin":       {OriginSwitchSearchVertical},
+		"q":            {QAll},
+		"filters":      {composeFilter(DefaultSearchSchoolFilter)},
+		"queryContext": {composeFilter(DefaultSearchSchoolQueryContext)},
 	})
 
 	if err != nil {
@@ -371,9 +360,9 @@ func (ln *Linkedin) SearchSchool(keywords string) (*SchoolNode, error) {
 func (ln *Linkedin) SearchService(keywords string) (*ServiceNode, error) {
 	raw, err := ln.get("/typeahead/hitsV2", url.Values{
 		"keywords": {keywords},
-		"origin":   {OOther},
-		"q":        {Type},
-		"type":     {TSkill},
+		"origin":   {OriginOther},
+		"q":        {QType},
+		"type":     {TypeSkill},
 		"useCase":  {MarketplaceSkills},
 	})
 
@@ -390,4 +379,29 @@ func (ln *Linkedin) SearchService(keywords string) (*ServiceNode, error) {
 	svcNode.Keywords = keywords
 
 	return svcNode, nil
+}
+
+// SearchGroup search groups by keywords
+func (ln *Linkedin) SearchGroup(keywords string) (*GroupNode, error) {
+	raw, err := ln.get("/search/blended", url.Values{
+		"keywords":     {keywords},
+		"origin":       {OriginSwitchSearchVertical},
+		"q":            {QAll},
+		"filters":      {composeFilter(DefaultSearchGroupFilter)},
+		"queryContext": {composeFilter(DefaultSearchGroupQueryContext)},
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	groupNode := new(GroupNode)
+	if err := json.Unmarshal(raw, groupNode); err != nil {
+		return nil, err
+	}
+
+	groupNode.ln = ln
+	groupNode.Keywords = keywords
+
+	return groupNode, nil
 }
