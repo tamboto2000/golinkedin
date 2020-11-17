@@ -7,10 +7,10 @@ import (
 )
 
 type InterestNode struct {
-	ProfileID string            `json:"profileId"`
-	Type      string            `json:"type"`
-	Elements  []InterestElement `json:"elements"`
-	Paging    Paging            `json:"paging"`
+	ProfileID string            `json:"profileId,omitempty"`
+	Type      string            `json:"type,omitempty"`
+	Elements  []InterestElement `json:"elements,omitempty"`
+	Paging    Paging            `json:"paging,omitempty"`
 
 	err        error
 	ln         *Linkedin
@@ -18,23 +18,23 @@ type InterestNode struct {
 }
 
 type InterestElement struct {
-	Entity        *Entity        `json:"entity"`
-	FollowingInfo *FollowingInfo `json:"followingInfo"`
+	Entity        *Entity        `json:"entity,omitempty"`
+	FollowingInfo *FollowingInfo `json:"followingInfo,omitempty"`
 }
 
 type Entity struct {
-	MiniCompany *MiniCompany `json:"com.linkedin.voyager.entities.shared.MiniCompany"`
-	MiniGroup   *MiniGroup   `json:"com.linkedin.voyager.entities.shared.MiniGroup"`
-	MiniSchool  *MiniSchool  `json:"com.linkedin.voyager.entities.shared.MiniSchool"`
-	MiniProfile *MiniProfile `json:"com.linkedin.voyager.entities.shared.MiniProfile"`
+	MiniCompany *MiniCompany `json:"com.linkedin.voyager.entities.shared.MiniCompany,omitempty"`
+	MiniGroup   *MiniGroup   `json:"com.linkedin.voyager.entities.shared.MiniGroup,omitempty"`
+	MiniSchool  *MiniSchool  `json:"com.linkedin.voyager.entities.shared.MiniSchool,omitempty"`
+	MiniProfile *MiniProfile `json:"com.linkedin.voyager.entities.shared.MiniProfile,omitempty"`
 }
 
 type FollowingInfo struct {
-	FollowingType string `json:"followingType"`
-	EntityUrn     string `json:"entityUrn"`
-	FollowerCount int64  `json:"followerCount"`
-	Following     bool   `json:"following"`
-	TrackingUrn   string `json:"trackingUrn"`
+	FollowingType string `json:"followingType,omitempty"`
+	EntityUrn     string `json:"entityUrn,omitempty"`
+	FollowerCount int64  `json:"followerCount,omitempty"`
+	Following     bool   `json:"following,omitempty"`
+	TrackingUrn   string `json:"trackingUrn,omitempty"`
 }
 
 func (inter *InterestNode) SetLinkedin(ln *Linkedin) {

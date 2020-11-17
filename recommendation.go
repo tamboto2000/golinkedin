@@ -7,10 +7,10 @@ import (
 )
 
 type RecommendationNode struct {
-	ProfileID string           `json:"profileId"`
-	Q         string           `json:"q"`
-	Elements  []Recommendation `json:"elements"`
-	Paging    Paging           `json:"paging"`
+	ProfileID string           `json:"profileId,omitempty"`
+	Q         string           `json:"q,omitempty"`
+	Elements  []Recommendation `json:"elements,omitempty"`
+	Paging    Paging           `json:"paging,omitempty"`
 
 	err        error
 	ln         *Linkedin
@@ -18,16 +18,16 @@ type RecommendationNode struct {
 }
 
 type Recommendation struct {
-	EntityUrn                      string       `json:"entityUrn"`
-	Created                        int64        `json:"created"`
-	Recommendee                    *MiniProfile `json:"recommendee"`
-	RecommendationText             string       `json:"recommendationText"`
-	RecommendeeEntity              string       `json:"recommendeeEntity"`
-	VisibilityOnRecommenderProfile string       `json:"visibilityOnRecommenderProfile"`
-	LastModified                   int64        `json:"lastModified"`
-	Relationship                   string       `json:"relationship"`
-	Recommender                    *MiniProfile `json:"recommender"`
-	Status                         string       `json:"status"`
+	EntityUrn                      string       `json:"entityUrn,omitempty"`
+	Created                        int64        `json:"created,omitempty"`
+	Recommendee                    *MiniProfile `json:"recommendee,omitempty"`
+	RecommendationText             string       `json:"recommendationText,omitempty"`
+	RecommendeeEntity              string       `json:"recommendeeEntity,omitempty"`
+	VisibilityOnRecommenderProfile string       `json:"visibilityOnRecommenderProfile,omitempty"`
+	LastModified                   int64        `json:"lastModified,omitempty"`
+	Relationship                   string       `json:"relationship,omitempty"`
+	Recommender                    *MiniProfile `json:"recommender,omitempty"`
+	Status                         string       `json:"status,omitempty"`
 }
 
 func (rec *RecommendationNode) SetLinkedin(ln *Linkedin) {
