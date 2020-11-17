@@ -12,7 +12,7 @@ import (
 const (
 	Rank1 = "F"
 	Rank2 = "S"
-	Rank3 = "T"
+	Rank3 = "O"
 )
 
 // Result Type
@@ -124,8 +124,18 @@ var DefaultSearchGroupQueryContext = &QueryContext{
 	SpellCorrectionEnabled: true,
 }
 
+// DefaultSearchPeopleFilter used for search peoples filters param
+var DefaultSearchPeopleFilter = &PeopleSearchFilter{
+	ResultType: ResultPeople,
+}
+
+// DefaultSearchPeopleQueryContext used for search peoples queryContext param
+var DefaultSearchPeopleQueryContext = &QueryContext{
+	SpellCorrectionEnabled: true,
+	RelatedSearchesEnabled: true,
+}
+
 // PeopleSearchFilter is filter for people search.
-// I don't know why its structured like that, maybe this is somekind of NoSQL?
 type PeopleSearchFilter struct {
 	CurrentCompany  []int    `q:"currentCompany" json:"currentCompany,omitempty"`
 	PastCompany     []int    `q:"pastCompany" json:"pastCompany,omitempty"`
@@ -138,7 +148,6 @@ type PeopleSearchFilter struct {
 	// Profile ID
 	ConnectionOf    string   `q:"connectionOf" json:"connectionOf,omitempty"`
 	ContactInterest []string `q:"contactInterest" json:"contactInterest,omitempty"`
-	ResultType      string   `q:"resultType" json:"resultType,omitempty"`
 	FirstName       string   `q:"firstName" json:"firstName,omitempty"`
 	LastName        string   `q:"lastName" json:"lastName,omitempty"`
 	Title           string   `q:"title" json:"title,omitempty"`
@@ -146,6 +155,9 @@ type PeopleSearchFilter struct {
 	// It will be still 'school', but with string value, i don't know why Linkedin have such ambiguous parameter.
 	// So you will have 'school' param with array of int, and 'school' param with string
 	SchoolStr string `q:"schoolStr" json:"schoolStr,omitempty"`
+
+	// will automaticaly set
+	ResultType string `q:"resultType" json:"resultType,omitempty"`
 }
 
 // Filters is generic filter used by no filter search, such as school search or company search
@@ -254,6 +266,38 @@ func composeFilter(obj interface{}) string {
 	}
 
 	return filter.str()
+}
+
+func (ln *Linkedin) SearchPeople(keywords string, filter *PeopleSearchFilter) (*PeopleNode, error) {
+	if filter == nil {
+		filter = DefaultSearchPeopleFilter
+	}
+
+	filter.ResultType = ResultPeople
+
+	raw, err := ln.get("/search/blended", url.Values{
+		"keywords":     {keywords},
+		"origin":       {OriginFacetedSearch},
+		"q":            {QAll},
+		"filters":      {composeFilter(filter)},
+		"queryContext": {composeFilter(DefaultSearchPeopleQueryContext)},
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	peopleNode := new(PeopleNode)
+	if err := json.Unmarshal(raw, peopleNode); err != nil {
+		return nil, err
+	}
+
+	peopleNode.Keywords = keywords
+	peopleNode.ln = ln
+	peopleNode.Filters = filter
+	peopleNode.QueryContext = DefaultSearchPeopleQueryContext
+
+	return peopleNode, nil
 }
 
 // SearchGeo search geolocation by keywords

@@ -37,4 +37,9 @@ func main() {
 	if err := searchGroup(ln, "ig"); err != nil {
 		panic(err.Error())
 	}
+
+	// search people
+	if err := searchPeople(ln, "ikh"); err != nil {
+		panic(err.Error())
+	}
 }
