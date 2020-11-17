@@ -26,6 +26,7 @@ type Entity struct {
 	MiniCompany *MiniCompany `json:"com.linkedin.voyager.entities.shared.MiniCompany"`
 	MiniGroup   *MiniGroup   `json:"com.linkedin.voyager.entities.shared.MiniGroup"`
 	MiniSchool  *MiniSchool  `json:"com.linkedin.voyager.entities.shared.MiniSchool"`
+	MiniProfile *MiniProfile `json:"com.linkedin.voyager.entities.shared.MiniProfile"`
 }
 
 type FollowingInfo struct {
