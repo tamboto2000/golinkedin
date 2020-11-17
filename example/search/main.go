@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/tamboto2000/linkedin"
+	"github.com/tamboto2000/golinkedin"
 )
 
 func main() {

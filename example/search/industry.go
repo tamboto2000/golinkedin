@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/tamboto2000/linkedin"
+	"github.com/tamboto2000/golinkedin"
 )
 
 func searchIndustry(ln *linkedin.Linkedin, keywords string) error {
