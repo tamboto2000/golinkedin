@@ -123,6 +123,12 @@ const (
 	InterestInfluencer = "INFLUENCER"
 )
 
+// Activity types
+const (
+	ActivityPost    = "POST"
+	ActivityArticle = "ARTICLE"
+)
+
 // ProfileByUsername lookup profile with basic information by public identifier (username)
 func (ln *Linkedin) ProfileByUsername(username string) (*ProfileNode, error) {
 	q := make(url.Values)
@@ -266,6 +272,7 @@ func (p *ProfileNode) ReceivedRecommendation() (*RecommendationNode, error) {
 	return recNode, nil
 }
 
+// Interest get profile interests
 func (p *ProfileNode) Interest(in string) (*InterestNode, error) {
 	raw, err := p.ln.get("/identity/profiles/"+p.ProfileID()+"/following", url.Values{
 		"count":      {"5"},
@@ -287,6 +294,40 @@ func (p *ProfileNode) Interest(in string) (*InterestNode, error) {
 	intNode.Type = in
 
 	return intNode, nil
+}
+
+func (p *ProfileNode) Activity(in string) (*ActivityNode, error) {
+	var raw []byte
+	var err error
+	if in == ActivityArticle {
+		raw, err = p.ln.get("/identity/profiles/"+p.ProfileID()+"/posts", nil)
+	}
+
+	if in == ActivityPost {
+		raw, err = p.ln.get("i/identity/profileUpdatesV2", url.Values{
+			"includeLongTermHistory": {"true"},
+			"moduleKey":              {"member-shares:phone"},
+			"numComments":            {"0"},
+			"numLikes":               {"0"},
+			"profileUrn":             {p.Elements[0].EntityUrn},
+			"q":                      {"memberShareFeed"},
+		})
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	actNode := new(ActivityNode)
+	if err := json.Unmarshal(raw, actNode); err != nil {
+		return nil, err
+	}
+
+	actNode.ProfileUrn = p.Elements[0].EntityUrn
+	actNode.Type = in
+	actNode.ln = p.ln
+
+	return actNode, nil
 }
 
 func parseProfileID(entityUrn string) string {

@@ -118,7 +118,8 @@ type Picture struct {
 }
 
 type Text struct {
-	Text string `json:"text,omitempty"`
+	TextDirection string `json:"textDirection,omitempty"`
+	Text          string `json:"text,omitempty"`
 }
 
 type Attribute struct {
@@ -127,6 +128,11 @@ type Attribute struct {
 	MiniSchool  *MiniSchool  `json:"miniSchool,omitempty"`
 	MiniGroup   *MiniGroup   `json:"miniGroup,omitempty"`
 	SourceType  string       `json:"sourceType,omitempty"`
+	Start       int64        `json:"start,omitempty"`
+	Length      int64        `json:"length,omitempty"`
+	Type        Type         `json:"type,omitempty"`
+	ArtDecoIcon string       `json:"artDecoIcon,omitempty"`
+	VectorImage VectorImage  `json:"vectorImage,omitempty"`
 }
 
 type MiniGroup struct {
@@ -149,4 +155,40 @@ type MiniSchool struct {
 	ObjectUrn  string `json:"objectUrn,omitempty"`
 	EntityUrn  string `json:"entityUrn,omitempty"`
 	TrackingID string `json:"trackingId,omitempty"`
+}
+
+type Metadata struct {
+	PaginationToken      string       `json:"paginationToken,omitempty"`
+	NewRelevanceFeed     bool         `json:"newRelevanceFeed,omitempty"`
+	ID                   string       `json:"id,omitempty"`
+	Type                 string       `json:"type,omitempty"`
+	QueryAfterTime       int64        `json:"queryAfterTime,omitempty"`
+	Urn                  string       `json:"urn,omitempty"`
+	ActionsPosition      string       `json:"actionsPosition,omitempty"`
+	ActionTriggerEnabled bool         `json:"actionTriggerEnabled,omitempty"`
+	DetailPageType       string       `json:"detailPageType,omitempty"`
+	ShareAudience        string       `json:"shareAudience,omitempty"`
+	ShareUrn             string       `json:"shareUrn,omitempty"`
+	ExcludedFromSeen     bool         `json:"excludedFromSeen,omitempty"`
+	ActionsUrn           string       `json:"actionsUrn,omitempty"`
+	Actions              []Action     `json:"actions,omitempty"`
+	TrackingData         TrackingData `json:"trackingData,omitempty"`
+}
+
+type Action struct {
+	ActionType       string       `json:"actionType,omitempty"`
+	Subtext          string       `json:"subtext,omitempty"`
+	SaveAction       *SaveAction  `json:"saveAction,omitempty"`
+	Text             *Text        `json:"text,omitempty"`
+	URL              string       `json:"url,omitempty"`
+	TargetUrn        string       `json:"targetUrn,omitempty"`
+	ContentSource    string       `json:"contentSource,omitempty"`
+	AuthorProfileID  string       `json:"authorProfileId,omitempty"`
+	AuthorUrn        string       `json:"authorUrn,omitempty"`
+	ConfirmationText *Description `json:"confirmationText,omitempty"`
+}
+
+type SaveAction struct {
+	EntityUrn string `json:"entityUrn,omitempty"`
+	Saved     bool   `json:"saved,omitempty"`
 }

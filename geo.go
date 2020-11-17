@@ -37,11 +37,6 @@ type Geo struct {
 	TrackingID                             string   `json:"trackingId,omitempty"`
 }
 
-type Metadata struct {
-	Type string `json:"type,omitempty"`
-	ID   string `json:"id,omitempty"`
-}
-
 func (g *GeoNode) SetLinkedin(ln *Linkedin) {
 	g.ln = ln
 }

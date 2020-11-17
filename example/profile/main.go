@@ -39,4 +39,9 @@ func main() {
 	if err := receivedRecommendation(profile); err != nil {
 		panic(err.Error())
 	}
+
+	// get activities
+	if err := activity(profile); err != nil {
+		panic(err.Error())
+	}
 }
