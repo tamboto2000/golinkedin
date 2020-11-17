@@ -30,13 +30,10 @@ type Organization struct {
 	Position                string      `json:"position,omitempty"`
 }
 
-// SetLinkedin set Linkedin client
 func (org *OrganizationNode) SetLinkedin(ln *Linkedin) {
 	org.ln = ln
 }
 
-// Next cursoring educations.
-// New certifications stored in OrganizationNode.Elements
 func (org *OrganizationNode) Next() bool {
 	if org.stopCursor {
 		return false

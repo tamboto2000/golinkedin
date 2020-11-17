@@ -35,14 +35,10 @@ type Certification struct {
 	TimePeriod               TimePeriod  `json:"timePeriod,omitempty"`
 }
 
-// SetLinkedin set Linkedin client
 func (c *CertificationNode) SetLinkedin(ln *Linkedin) {
 	c.ln = ln
 }
 
-// Next cursoring certifications.
-// New data stored in CertificationNode.Elements.
-// Everytime Next() get called, elements will be refreshed with new data
 func (c *CertificationNode) Next() bool {
 	if c.stopCursor {
 		return false
