@@ -130,9 +130,10 @@ type Attribute struct {
 	SourceType  string       `json:"sourceType,omitempty"`
 	Start       int64        `json:"start,omitempty"`
 	Length      int64        `json:"length,omitempty"`
-	Type        Type         `json:"type,omitempty"`
-	ArtDecoIcon string       `json:"artDecoIcon,omitempty"`
-	VectorImage VectorImage  `json:"vectorImage,omitempty"`
+	// can be string or Type
+	Type        interface{} `json:"type,omitempty"`
+	ArtDecoIcon string      `json:"artDecoIcon,omitempty"`
+	VectorImage VectorImage `json:"vectorImage,omitempty"`
 }
 
 type MiniGroup struct {
@@ -176,10 +177,11 @@ type Metadata struct {
 }
 
 type Action struct {
-	ActionType       string       `json:"actionType,omitempty"`
-	Subtext          string       `json:"subtext,omitempty"`
-	SaveAction       *SaveAction  `json:"saveAction,omitempty"`
-	Text             *Text        `json:"text,omitempty"`
+	ActionType string      `json:"actionType,omitempty"`
+	Subtext    string      `json:"subtext,omitempty"`
+	SaveAction *SaveAction `json:"saveAction,omitempty"`
+	// can be string or Text
+	Text             interface{}  `json:"text,omitempty"`
 	URL              string       `json:"url,omitempty"`
 	TargetUrn        string       `json:"targetUrn,omitempty"`
 	ContentSource    string       `json:"contentSource,omitempty"`

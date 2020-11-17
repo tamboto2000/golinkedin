@@ -205,7 +205,7 @@ func (act *ActivityNode) Next() bool {
 	}
 
 	if act.Type == ActivityPost {
-		raw, err = act.ln.get("i/identity/profileUpdatesV2", url.Values{
+		raw, err = act.ln.get("/identity/profileUpdatesV2", url.Values{
 			"includeLongTermHistory": {"true"},
 			"moduleKey":              {"member-shares:phone"},
 			"numComments":            {"0"},

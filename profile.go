@@ -304,7 +304,7 @@ func (p *ProfileNode) Activity(in string) (*ActivityNode, error) {
 	}
 
 	if in == ActivityPost {
-		raw, err = p.ln.get("i/identity/profileUpdatesV2", url.Values{
+		raw, err = p.ln.get("/identity/profileUpdatesV2", url.Values{
 			"includeLongTermHistory": {"true"},
 			"moduleKey":              {"member-shares:phone"},
 			"numComments":            {"0"},
