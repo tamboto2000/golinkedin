@@ -115,6 +115,14 @@ type COMLinkedinVoyagerIdentityProfileCustomWebsite struct {
 	Label string `json:"label,omitempty"`
 }
 
+// Interest types
+const (
+	InterestCompany    = "COMPANY"
+	InterestGroup      = "GROUP"
+	InterestSchool     = "SCHOOL"
+	InterestInfluencer = "INFLUENCER"
+)
+
 // ProfileByUsername lookup profile with basic information by public identifier (username)
 func (ln *Linkedin) ProfileByUsername(username string) (*ProfileNode, error) {
 	q := make(url.Values)
@@ -256,6 +264,29 @@ func (p *ProfileNode) ReceivedRecommendation() (*RecommendationNode, error) {
 	recNode.Q = "received"
 
 	return recNode, nil
+}
+
+func (p *ProfileNode) Interest(in string) (*InterestNode, error) {
+	raw, err := p.ln.get("/identity/profiles/"+p.ProfileID()+"/following", url.Values{
+		"count":      {"5"},
+		"entityType": {in},
+		"q":          {"followedEntities"},
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	intNode := new(InterestNode)
+	if err := json.Unmarshal(raw, intNode); err != nil {
+		return nil, err
+	}
+
+	intNode.ln = p.ln
+	intNode.ProfileID = p.ProfileID()
+	intNode.Type = in
+
+	return intNode, nil
 }
 
 func parseProfileID(entityUrn string) string {

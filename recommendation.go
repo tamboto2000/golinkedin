@@ -57,9 +57,9 @@ func (rec *RecommendationNode) Next() bool {
 	}
 
 	rec.Elements = recNode.Elements
-	rec.Paging = recNode.Paging
+	rec.Paging.Start = recNode.Paging.Start + recNode.Paging.Count
 
-	if len(rec.Elements) < recNode.Paging.Count {
+	if len(rec.Elements) < rec.Paging.Count {
 		rec.stopCursor = true
 	}
 

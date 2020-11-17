@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/tamboto2000/linkedin"
+	"github.com/tamboto2000/linkedin/v1"
 )
 
 func contactInfo(profile *linkedin.ProfileNode) error {

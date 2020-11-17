@@ -1,3 +1,4 @@
 *.exe
 *.json
 test/
+go.sum
