@@ -204,7 +204,7 @@ func (p *ProfileNode) PositionGroups() *PositionGroupNode {
 
 // ContactInfo get profile contact info
 func (p *ProfileNode) ContactInfo() (*ContactInfo, error) {
-	raw, err := p.ln.get("/identity/profiles/"+p.Elements[0].PublicIdentifier+"/profileContactInfo", nil)
+	raw, err := p.ln.get("/identity/profiles/"+p.ProfileID()+"/profileContactInfo", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -215,6 +215,47 @@ func (p *ProfileNode) ContactInfo() (*ContactInfo, error) {
 	}
 
 	return contact, nil
+}
+
+// GivenRecommendation get profile given recommendations
+func (p *ProfileNode) GivenRecommendation() (*RecommendationNode, error) {
+	raw, err := p.ln.get("/identity/profiles/"+p.ProfileID()+"/recommendations", url.Values{"q": {"given"}})
+	if err != nil {
+		return nil, err
+	}
+
+	recNode := new(RecommendationNode)
+	if err := json.Unmarshal(raw, recNode); err != nil {
+		return nil, err
+	}
+
+	recNode.ln = p.ln
+	recNode.ProfileID = p.ProfileID()
+	recNode.Q = "given"
+
+	return recNode, nil
+}
+
+// ReceivedRecommendation get profile received recommendations
+func (p *ProfileNode) ReceivedRecommendation() (*RecommendationNode, error) {
+	raw, err := p.ln.get("/identity/profiles/"+p.ProfileID()+"/recommendations", url.Values{
+		"q":                      {"received"},
+		"recommendationStatuses": {"List(VISIBLE)"},
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	recNode := new(RecommendationNode)
+	if err := json.Unmarshal(raw, recNode); err != nil {
+		return nil, err
+	}
+
+	recNode.ln = p.ln
+	recNode.ProfileID = p.ProfileID()
+	recNode.Q = "received"
+
+	return recNode, nil
 }
 
 func parseProfileID(entityUrn string) string {

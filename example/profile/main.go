@@ -29,4 +29,14 @@ func main() {
 	if err := contactInfo(profile); err != nil {
 		panic(err.Error())
 	}
+
+	// get given recommendation
+	if err := givenRecommendation(profile); err != nil {
+		panic(err.Error())
+	}
+
+	// get received recommendation
+	if err := receivedRecommendation(profile); err != nil {
+		panic(err.Error())
+	}
 }

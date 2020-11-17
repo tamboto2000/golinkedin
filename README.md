@@ -19,8 +19,6 @@ Feel free to fork and contribute!
 
 # Upcoming Features
 
-  - Profile Contact Data
-  - Profile Search by Username
   - Profile Treasury Media Data
   - Profile Publications Lookup
   - Profile Volunteer Exeperiences Lookup
