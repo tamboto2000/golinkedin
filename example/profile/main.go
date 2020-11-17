@@ -24,4 +24,9 @@ func main() {
 	if err := json.NewEncoder(f).Encode(profile); err != nil {
 		panic(err.Error())
 	}
+
+	// get contact info
+	if err := contactInfo(profile); err != nil {
+		panic(err.Error())
+	}
 }

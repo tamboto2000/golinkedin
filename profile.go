@@ -81,6 +81,40 @@ type BackgroundPicture struct {
 	DisplayImageUrn       string                 `json:"displayImageUrn,omitempty"`
 }
 
+type ContactInfo struct {
+	BirthDateOn               BirthDateOn   `json:"birthDateOn,omitempty"`
+	EmailAddress              string        `json:"emailAddress,omitempty"`
+	BirthdayVisibilitySetting string        `json:"birthdayVisibilitySetting,omitempty"`
+	Address                   string        `json:"address,omitempty"`
+	EntityUrn                 string        `json:"entityUrn,omitempty"`
+	Websites                  []Website     `json:"websites,omitempty"`
+	TwitterHandles            []interface{} `json:"twitterHandles,omitempty"`
+	PhoneNumbers              []PhoneNumber `json:"phoneNumbers,omitempty"`
+}
+
+type BirthDateOn struct {
+	Month int64 `json:"month,omitempty"`
+	Day   int64 `json:"day,omitempty"`
+}
+
+type PhoneNumber struct {
+	Type   string `json:"type,omitempty"`
+	Number string `json:"number,omitempty"`
+}
+
+type Website struct {
+	Type Type   `json:"type,omitempty"`
+	URL  string `json:"url,omitempty"`
+}
+
+type Type struct {
+	COMLinkedinVoyagerIdentityProfileCustomWebsite COMLinkedinVoyagerIdentityProfileCustomWebsite `json:"com.linkedin.voyager.identity.profile.CustomWebsite,omitempty"`
+}
+
+type COMLinkedinVoyagerIdentityProfileCustomWebsite struct {
+	Label string `json:"label,omitempty"`
+}
+
 // ProfileByUsername lookup profile with basic information by public identifier (username)
 func (ln *Linkedin) ProfileByUsername(username string) (*ProfileNode, error) {
 	q := make(url.Values)
@@ -166,6 +200,21 @@ func (p *ProfileNode) PositionGroups() *PositionGroupNode {
 	post.ProfileID = profileID
 
 	return post
+}
+
+// ContactInfo get profile contact info
+func (p *ProfileNode) ContactInfo() (*ContactInfo, error) {
+	raw, err := p.ln.get("/identity/profiles/"+p.Elements[0].PublicIdentifier+"/profileContactInfo", nil)
+	if err != nil {
+		return nil, err
+	}
+
+	contact := new(ContactInfo)
+	if err := json.Unmarshal(raw, contact); err != nil {
+		return nil, err
+	}
+
+	return contact, nil
 }
 
 func parseProfileID(entityUrn string) string {
