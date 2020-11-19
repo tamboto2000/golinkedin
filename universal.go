@@ -1,4 +1,4 @@
-package linkedin
+package golinkedin
 
 // Paging control resource cursoring.
 // It is highly advised to NOT CHANGE ANY OF THE VALUES OF Paging as it can cause infinite loop when cursoring
@@ -61,7 +61,7 @@ type Coordinate struct {
 // Logo ususally used in Company or School for their logo image
 type Logo struct {
 	// Sometimes the images stored in here
-	COMLinkedinCommonVectorImage *VectorImage `json:"com.linkedin.common.VectorImage,omitempty"`
+	COMLinkedinCommonVectorImage *VectorImage `json:"com.golinkedin.common.VectorImage,omitempty"`
 	// Sometimes in here, make sure to check both of these fields
 	VectorImage *VectorImage `json:"vectorImage,omitempty"`
 }
@@ -111,17 +111,17 @@ type Country struct {
 type Location struct {
 	PreferredGeoPlace string `json:"preferredGeoPlace,omitempty"`
 	CountryCode       string `json:"countryCode,omitempty"`
-	Country           string `json:"country"`
-	City              string `json:"city"`
-	PostalCode        string `json:"postalCode"`
-	Description       string `json:"description"`
-	Headquarter       bool   `json:"headquarter"`
-	Line2             string `json:"line2"`
-	Line1             string `json:"line1"`
+	Country           string `json:"country,omitempty"`
+	City              string `json:"city,omitempty"`
+	PostalCode        string `json:"postalCode,omitempty"`
+	Description       string `json:"description,omitempty"`
+	Headquarter       bool   `json:"headquarter,omitempty"`
+	Line2             string `json:"line2,omitempty"`
+	Line1             string `json:"line1,omitempty"`
 }
 
 type Picture struct {
-	COMLinkedinCommonVectorImage *VectorImage `json:"com.linkedin.common.VectorImage,omitempty"`
+	COMLinkedinCommonVectorImage *VectorImage `json:"com.golinkedin.common.VectorImage,omitempty"`
 }
 
 type Text struct {
@@ -153,7 +153,7 @@ type MiniGroup struct {
 }
 
 type Image struct {
-	COMLinkedinCommonVectorImage *VectorImage  `json:"com.linkedin.common.VectorImage"`
+	COMLinkedinCommonVectorImage *VectorImage  `json:"com.golinkedin.common.VectorImage,omitempty"`
 	Attributes                   []Attribute   `json:"attributes,omitempty"`
 	AccessibilityTextAttributes  []interface{} `json:"accessibilityTextAttributes,omitempty"`
 }
@@ -204,7 +204,7 @@ type SaveAction struct {
 }
 
 type CountRange struct {
-	Start  int64 `json:"start"`
-	Length int   `json:"length"`
-	To     int   `json:"to"`
+	Start  int64 `json:"start,omitempty"`
+	Length int   `json:"length,omitempty"`
+	To     int   `json:"to,omitempty"`
 }

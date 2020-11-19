@@ -1,4 +1,4 @@
-package linkedin
+package golinkedin
 
 import (
 	"encoding/json"
@@ -18,7 +18,7 @@ type IndustryNode struct {
 }
 
 type Industry struct {
-	LocalizedName       string `json:"localizedName"`
+	LocalizedName       string `json:"localizedName,omitempty"`
 	Name                string `json:"name,omitempty"`
 	RecipeType          string `json:"$recipeType,omitempty"`
 	EntityUrn           string `json:"entityUrn,omitempty"`

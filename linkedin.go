@@ -5,7 +5,7 @@
 // of some object returned by Linkedin internal API, and because the nature of Linkedin internal API that treat almost every object as
 // optional, empty field or object will not be returned by Linkedin internal API, so some object or fields might be missing.
 // Feel free to fork and contribute!
-package linkedin
+package golinkedin
 
 import (
 	"errors"
@@ -20,7 +20,7 @@ const (
 	// ErrSessionInvalid is returned when Linkedin session can not be used
 	ErrSessionInvalid = "Linkedin session invalid"
 
-	basePath  = "https://www.linkedin.com"
+	basePath  = "https://www.golinkedin.com"
 	userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:82.0) Gecko/20100101 Firefox/82.0"
 )
 

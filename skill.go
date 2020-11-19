@@ -1,4 +1,4 @@
-package linkedin
+package golinkedin
 
 import (
 	"encoding/json"

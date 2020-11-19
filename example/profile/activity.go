@@ -7,13 +7,13 @@ import (
 	"github.com/tamboto2000/golinkedin/v1"
 )
 
-func activity(profile *linkedin.ProfileNode) error {
-	act, err := profile.Activity(linkedin.ActivityArticle)
+func activity(profile *golinkedin.ProfileNode) error {
+	act, err := profile.Activity(golinkedin.ActivityArticle)
 	if err != nil {
 		return err
 	}
 
-	acts := make([]linkedin.Activity, 0)
+	acts := make([]golinkedin.Activity, 0)
 	for act.Next() {
 		acts = append(acts, act.Elements...)
 		if len(acts) >= 20 {

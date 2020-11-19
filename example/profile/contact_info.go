@@ -7,7 +7,7 @@ import (
 	"github.com/tamboto2000/golinkedin/v1"
 )
 
-func contactInfo(profile *linkedin.ProfileNode) error {
+func contactInfo(profile *golinkedin.ProfileNode) error {
 	contact, err := profile.ContactInfo()
 	if err != nil {
 		return err

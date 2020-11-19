@@ -4,16 +4,16 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/tamboto2000/golinkedin"
+	"github.com/tamboto2000/golinkedin/v1"
 )
 
-func searchGroup(ln *linkedin.Linkedin, keywords string) error {
+func searchGroup(ln *golinkedin.Linkedin, keywords string) error {
 	grNode, err := ln.SearchGroup(keywords)
 	if err != nil {
 		return err
 	}
 
-	schs := make([]linkedin.Group, 0)
+	schs := make([]golinkedin.Group, 0)
 	for grNode.Next() {
 		schs = append(schs, grNode.Elements[0].Elements...)
 		if len(schs) >= 20 {

@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/tamboto2000/golinkedin"
+	"github.com/tamboto2000/golinkedin/v1"
 )
 
 func main() {
-	ln := linkedin.New()
+	ln := golinkedin.New()
 	ln.SetCookieStr(`your_linkedin_cookies`)
 
 	// search geos

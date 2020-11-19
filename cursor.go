@@ -1,4 +1,4 @@
-package linkedin
+package golinkedin
 
 // Cursor is interface for all nodes that have pagination/cursor
 type Cursor interface {

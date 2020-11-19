@@ -7,7 +7,7 @@ import (
 	"github.com/tamboto2000/golinkedin/v1"
 )
 
-func givenRecommendation(profile *linkedin.ProfileNode) error {
+func givenRecommendation(profile *golinkedin.ProfileNode) error {
 	recomm, err := profile.GivenRecommendation()
 	if err != nil {
 		return err
@@ -22,7 +22,7 @@ func givenRecommendation(profile *linkedin.ProfileNode) error {
 	return json.NewEncoder(f).Encode(recomm)
 }
 
-func receivedRecommendation(profile *linkedin.ProfileNode) error {
+func receivedRecommendation(profile *golinkedin.ProfileNode) error {
 	recomm, err := profile.ReceivedRecommendation()
 	if err != nil {
 		return err

@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	ln := linkedin.New()
+	ln := golinkedin.New()
 	ln.SetCookieStr(`your_linkedin_cookies`)
 
 	profile, err := ln.ProfileByUsername("linkedin_username")

@@ -1,4 +1,4 @@
-package linkedin
+package golinkedin
 
 import (
 	"encoding/json"
@@ -108,7 +108,7 @@ type Website struct {
 }
 
 type Type struct {
-	COMLinkedinVoyagerIdentityProfileCustomWebsite COMLinkedinVoyagerIdentityProfileCustomWebsite `json:"com.linkedin.voyager.identity.profile.CustomWebsite,omitempty"`
+	COMLinkedinVoyagerIdentityProfileCustomWebsite COMLinkedinVoyagerIdentityProfileCustomWebsite `json:"com.golinkedin.voyager.identity.profile.CustomWebsite,omitempty"`
 }
 
 type COMLinkedinVoyagerIdentityProfileCustomWebsite struct {
@@ -134,7 +134,7 @@ func (ln *Linkedin) ProfileByUsername(username string) (*ProfileNode, error) {
 	q := make(url.Values)
 	q.Add("q", "memberIdentity")
 	q.Add("memberIdentity", username)
-	q.Add("decorationId", "com.linkedin.voyager.dash.deco.identity.profile.FullProfileWithEntities-57")
+	q.Add("decorationId", "com.golinkedin.voyager.dash.deco.identity.profile.FullProfileWithEntities-57")
 
 	raw, err := ln.get("/identity/dash/profiles", q)
 	if err != nil {

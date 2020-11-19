@@ -1,4 +1,4 @@
-package linkedin
+package golinkedin
 
 import (
 	"encoding/json"
@@ -7,51 +7,158 @@ import (
 )
 
 type CompanyNode struct {
-	Metadata Metadata             `json:"metadata,omitempty"`
-	Elements []CompanyNodeElement `json:"elements,omitempty"`
-	Paging   Paging               `json:"paging,omitempty"`
-	Keywords string               `json:"keywords,omitempty"`
+	Metadata Metadata  `json:"metadata,omitempty"`
+	Elements []Company `json:"elements,omitempty"`
+	Paging   Paging    `json:"paging,omitempty"`
+	Keywords string    `json:"keywords,omitempty"`
 
 	err        error
 	ln         *Linkedin
 	stopCursor bool
 }
 
-type CompanyNodeElement struct {
-	ExtendedElements []interface{} `json:"extendedElements,omitempty"`
-	Elements         []Company     `json:"elements,omitempty"`
-	Type             string        `json:"type,omitempty"`
-}
-
 // Company contain information about a company
 type Company struct {
-	Industry             map[string]Industry   `json:"industry,omitempty"`
-	IndustryUrns         []string              `json:"industryUrns,omitempty"`
-	AntiAbuseAnnotations []AntiAbuseAnnotation `json:"$anti_abuse_annotations,omitempty"`
-	EntityUrn            string                `json:"entityUrn,omitempty"`
-	MiniCompany          *MiniCompany          `json:"miniCompany,omitempty"`
-	EmployeeCountRange   *EmployeeCountRange   `json:"employeeCountRange,omitempty"`
-	Industries           []string              `json:"industries,omitempty"`
-	Name                 string                `json:"name,omitempty"`
-	Logo                 *Logo                 `json:"logo,omitempty"`
-	RecipeType           string                `json:"$recipeType,omitempty"`
-	UniversalName        string                `json:"universalName,omitempty"`
-	URL                  string                `json:"url,omitempty"`
-	ObjectUrn            string                `json:"objectUrn,omitempty"`
-	Showcase             bool                  `json:"showcase,omitempty"`
-	Active               bool                  `json:"active,omitempty"`
-	TrackingID           string                `json:"trackingId,omitempty"`
-	Image                *Image                `json:"image,omitempty"`
-	Subtext              *Text                 `json:"subtext,omitempty"`
-	TargetUrn            string                `json:"targetUrn,omitempty"`
-	Text                 *Text                 `json:"text,omitempty"`
-	DashTargetUrn        string                `json:"dashTargetUrn,omitempty"`
-	Type                 string                `json:"type,omitempty"`
+	// Elements contains companies from search company result
+	Elements                               []Company                   `json:"elements,omitempty"`
+	ExtendedElements                       []interface{}               `json:"extendedElements,omitempty"`
+	Industry                               map[string]Industry         `json:"industry,omitempty"`
+	IndustryUrns                           []string                    `json:"industryUrns,omitempty"`
+	AntiAbuseAnnotations                   []AntiAbuseAnnotation       `json:"$anti_abuse_annotations,omitempty"`
+	EntityUrn                              string                      `json:"entityUrn,omitempty"`
+	MiniCompany                            *MiniCompany                `json:"miniCompany,omitempty"`
+	EmployeeCountRange                     *EmployeeCountRange         `json:"employeeCountRange,omitempty"`
+	Industries                             []string                    `json:"industries,omitempty"`
+	Name                                   string                      `json:"name,omitempty"`
+	Logo                                   *Logo                       `json:"logo,omitempty"`
+	RecipeType                             string                      `json:"$recipeType,omitempty"`
+	UniversalName                          string                      `json:"universalName,omitempty"`
+	URL                                    string                      `json:"url,omitempty"`
+	ObjectUrn                              string                      `json:"objectUrn,omitempty"`
+	Showcase                               bool                        `json:"showcase,omitempty"`
+	Active                                 bool                        `json:"active,omitempty"`
+	TrackingID                             string                      `json:"trackingId,omitempty"`
+	Image                                  *Image                      `json:"image,omitempty"`
+	Subtext                                *Text                       `json:"subtext,omitempty"`
+	TargetUrn                              string                      `json:"targetUrn,omitempty"`
+	Text                                   *Text                       `json:"text,omitempty"`
+	DashTargetUrn                          string                      `json:"dashTargetUrn,omitempty"`
+	Type                                   string                      `json:"type,omitempty"`
+	TrackingUrn                            string                      `json:"trackingUrn,omitempty"`
+	Title                                  *Title                      `json:"title,omitempty"`
+	Headline                               *Headline                   `json:"headline,omitempty"`
+	Subline                                *Headline                   `json:"subline,omitempty"`
+	VideosTabVisible                       bool                        `json:"videosTabVisible,omitempty"`
+	StaffCount                             int64                       `json:"staffCount,omitempty"`
+	CompanyEmployeesSearchPageURL          string                      `json:"companyEmployeesSearchPageUrl,omitempty"`
+	ViewerFollowingJobsUpdates             bool                        `json:"viewerFollowingJobsUpdates,omitempty"`
+	MyCompanyVisible                       bool                        `json:"myCompanyVisible,omitempty"`
+	Permissions                            *Permissions                `json:"permissions,omitempty"`
+	EligibleForOnlineJobPostingEntry       bool                        `json:"eligibleForOnlineJobPostingEntry,omitempty"`
+	FollowingInfo                          *FollowingInfo              `json:"followingInfo,omitempty"`
+	ViewerEmployee                         bool                        `json:"viewerEmployee,omitempty"`
+	AffiliatedCompaniesWithEmployeesRollup []interface{}               `json:"affiliatedCompaniesWithEmployeesRollup,omitempty"`
+	AffiliatedCompaniesWithJobsRollup      []interface{}               `json:"affiliatedCompaniesWithJobsRollup,omitempty"`
+	OrganizationLixes                      []interface{}               `json:"organizationLixes,omitempty"`
+	Tagline                                string                      `json:"tagline,omitempty"`
+	ViewerCurrentEmployee                  bool                        `json:"viewerCurrentEmployee,omitempty"`
+	MultiLocaleTaglines                    *MultiLocaleTaglines        `json:"multiLocaleTaglines,omitempty"`
+	Headquarter                            *Location                   `json:"headquarter,omitempty"`
+	PublishedProductsOwner                 bool                        `json:"publishedProductsOwner,omitempty"`
+	CompanyPageURL                         string                      `json:"companyPageUrl,omitempty"`
+	ViewerConnectedToAdministrator         bool                        `json:"viewerConnectedToAdministrator,omitempty"`
+	DataVersion                            int64                       `json:"dataVersion,omitempty"`
+	AssociatedHashtags                     []string                    `json:"associatedHashtags,omitempty"`
+	ShowcasePages                          []interface{}               `json:"showcasePages,omitempty"`
+	ClaimableByViewer                      bool                        `json:"claimableByViewer,omitempty"`
+	JobSearchPageURL                       string                      `json:"jobSearchPageUrl,omitempty"`
+	AutoGenerated                          bool                        `json:"autoGenerated,omitempty"`
+	ViewerPermissions                      *ViewerPermissions          `json:"viewerPermissions,omitempty"`
+	StaffingCompany                        bool                        `json:"staffingCompany,omitempty"`
+	CompanyIndustries                      []Industry                  `json:"companyIndustries,omitempty"`
+	CallToAction                           *CallToAction               `json:"callToAction,omitempty"`
+	AdsRule                                string                      `json:"adsRule,omitempty"`
+	StaffCountRange                        *CountRange                 `json:"staffCountRange,omitempty"`
+	Claimable                              bool                        `json:"claimable,omitempty"`
+	Specialities                           []string                    `json:"specialities,omitempty"`
+	ConfirmedLocations                     []Location                  `json:"confirmedLocations,omitempty"`
+	VersionTag                             string                      `json:"versionTag,omitempty"`
+	LcpTreatment                           bool                        `json:"lcpTreatment,omitempty"`
+	AssociatedHashtagsResolutionResults    *json.RawMessage            `json:"associatedHashtagsResolutionResults,omitempty"`
+	EmployeeExperienceSettings             *EmployeeExperienceSettings `json:"employeeExperienceSettings,omitempty"`
+	Description                            string                      `json:"description,omitempty"`
+	PaidCompany                            bool                        `json:"paidCompany,omitempty"`
+	ViewerPendingAdministrator             bool                        `json:"viewerPendingAdministrator,omitempty"`
+	AffiliatedCompanies                    []interface{}               `json:"affiliatedCompanies,omitempty"`
+	FoundedOn                              *Date                       `json:"foundedOn,omitempty"`
+	CompanyType                            *CompanyType                `json:"companyType,omitempty"`
+	Groups                                 []interface{}               `json:"groups,omitempty"`
+	EventsTabVisible                       bool                        `json:"eventsTabVisible,omitempty"`
+	BackgroundCoverImage                   *BackgroundCoverImage       `json:"backgroundCoverImage,omitempty"`
+}
 
-	TrackingUrn string    `json:"trackingUrn,omitempty"`
-	Title       *Title    `json:"title,omitempty"`
-	Headline    *Headline `json:"headline,omitempty"`
-	Subline     *Headline `json:"subline,omitempty"`
+type Permissions struct {
+	LandingPageAdmin bool `json:"landingPageAdmin,omitempty"`
+	Admin            bool `json:"admin,omitempty"`
+	AdAccountHolder  bool `json:"adAccountHolder,omitempty"`
+}
+
+type MultiLocaleTaglines struct {
+	Localized       MultiLocale `json:"localized,omitempty"`
+	PreferredLocale Locale      `json:"preferredLocale,omitempty"`
+}
+
+type ViewerPermissions struct {
+	CanReadPipelineBuilderAdminPage      bool   `json:"canReadPipelineBuilderAdminPage,omitempty"`
+	CanCreateOrganicShare                bool   `json:"canCreateOrganicShare,omitempty"`
+	CanUntagFromMention                  bool   `json:"canUntagFromMention,omitempty"`
+	CanReadOrganizationVisitorAnalytics  bool   `json:"canReadOrganizationVisitorAnalytics,omitempty"`
+	CanCreateComment                     bool   `json:"canCreateComment,omitempty"`
+	CanDeleteShare                       bool   `json:"canDeleteShare,omitempty"`
+	CanCreateReaction                    bool   `json:"canCreateReaction,omitempty"`
+	CanEnableCommentsShare               bool   `json:"canEnableCommentsShare,omitempty"`
+	CanDisableCommentsShare              bool   `json:"canDisableCommentsShare,omitempty"`
+	CanDeleteDarkShare                   bool   `json:"canDeleteDarkShare,omitempty"`
+	RecipeType                           string `json:"$recipeType,omitempty"`
+	CanSeeOrganizationAdministrativePage bool   `json:"canSeeOrganizationAdministrativePage,omitempty"`
+}
+
+type CallToAction struct {
+	CallToActionType    string              `json:"callToActionType,omitempty"`
+	Visible             bool                `json:"visible,omitempty"`
+	CallToActionMessage CallToActionMessage `json:"callToActionMessage,omitempty"`
+	URL                 string              `json:"url,omitempty"`
+}
+
+type CallToActionMessage struct {
+	TextDirection string `json:"textDirection,omitempty"`
+	Text          string `json:"text,omitempty"`
+}
+
+type EmployeeExperienceSettings struct {
+	MyCompanyVisibility                   bool   `json:"myCompanyVisibility,omitempty"`
+	PymkVisibility                        string `json:"pymkVisibility,omitempty"`
+	MyCompanyEmployeeVerificationRequired bool   `json:"myCompanyEmployeeVerificationRequired,omitempty"`
+	HighlightsVisibility                  string `json:"highlightsVisibility,omitempty"`
+	TrendingContentVisibility             string `json:"trendingContentVisibility,omitempty"`
+	BroadcastsVisibility                  string `json:"broadcastsVisibility,omitempty"`
+}
+
+type CompanyType struct {
+	LocalizedName string `json:"localizedName,omitempty"`
+	Code          string `json:"code,omitempty"`
+}
+
+type BackgroundCoverImage struct {
+	Image    Image    `json:"image,omitempty"`
+	CropInfo CropInfo `json:"cropInfo,omitempty"`
+}
+
+type CropInfo struct {
+	X      int64 `json:"x,omitempty"`
+	Width  int64 `json:"width,omitempty"`
+	Y      int64 `json:"y,omitempty"`
+	Height int64 `json:"height,omitempty"`
 }
 
 type Headline struct {
