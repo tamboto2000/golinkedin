@@ -18,6 +18,7 @@ type IndustryNode struct {
 }
 
 type Industry struct {
+	LocalizedName       string `json:"localizedName"`
 	Name                string `json:"name,omitempty"`
 	RecipeType          string `json:"$recipeType,omitempty"`
 	EntityUrn           string `json:"entityUrn,omitempty"`
