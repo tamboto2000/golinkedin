@@ -111,6 +111,13 @@ type Country struct {
 type Location struct {
 	PreferredGeoPlace string `json:"preferredGeoPlace,omitempty"`
 	CountryCode       string `json:"countryCode,omitempty"`
+	Country           string `json:"country"`
+	City              string `json:"city"`
+	PostalCode        string `json:"postalCode"`
+	Description       string `json:"description"`
+	Headquarter       bool   `json:"headquarter"`
+	Line2             string `json:"line2"`
+	Line1             string `json:"line1"`
 }
 
 type Picture struct {
@@ -146,8 +153,9 @@ type MiniGroup struct {
 }
 
 type Image struct {
-	Attributes                  []Attribute   `json:"attributes,omitempty"`
-	AccessibilityTextAttributes []interface{} `json:"accessibilityTextAttributes,omitempty"`
+	COMLinkedinCommonVectorImage *VectorImage  `json:"com.linkedin.common.VectorImage"`
+	Attributes                   []Attribute   `json:"attributes,omitempty"`
+	AccessibilityTextAttributes  []interface{} `json:"accessibilityTextAttributes,omitempty"`
 }
 
 type MiniSchool struct {
@@ -193,4 +201,10 @@ type Action struct {
 type SaveAction struct {
 	EntityUrn string `json:"entityUrn,omitempty"`
 	Saved     bool   `json:"saved,omitempty"`
+}
+
+type CountRange struct {
+	Start  int64 `json:"start"`
+	Length int   `json:"length"`
+	To     int   `json:"to"`
 }
