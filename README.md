@@ -1,7 +1,7 @@
 # Linkedin
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/tamboto2000/golinkedin)](https://pkg.go.dev/github.com/tamboto2000/golinkedin) [![GitHub](https://img.shields.io/github/license/tamboto2000/golinkedin)](https://github.com/tamboto2000/golinkedin/blob/v1/LICENSE) ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/tamboto2000/golinkedin) [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/tamboto2000/linkedin/v1-build/v1)](https://github.com/tamboto2000/golinkedin/actions/runs/368601427)
 
-Linkedin is a library for scraping Linkedin.
+Golinkedin is a library for scraping Linkedin.
 Unfortunately, auto login is impossible (probably...), so you need to retrieve Linkedin session cookies manually.
 As mentioned above, the purpose of this package is only for scraping, so there is no method for create, update, or delete data.
 Not all object is documented or present because Franklin Collin Tamboto, the original author, does not fully understand the purpose of some object returned by Linkedin internal API, and because the nature of Linkedin internal API that treat almost every object as optional, empty field or object will not be returned by Linkedin internal API, so some object or fields might be missing.
