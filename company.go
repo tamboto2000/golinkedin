@@ -47,8 +47,8 @@ type Company struct {
 	Type                                                    string                      `json:"type,omitempty"`
 	TrackingUrn                                             string                      `json:"trackingUrn,omitempty"`
 	Title                                                   *Title                      `json:"title,omitempty"`
-	Headline                                                *Headline                   `json:"headline,omitempty"`
-	Subline                                                 *Headline                   `json:"subline,omitempty"`
+	Headline                                                *Text                       `json:"headline,omitempty"`
+	Subline                                                 *Text                       `json:"subline,omitempty"`
 	VideosTabVisible                                        bool                        `json:"videosTabVisible,omitempty"`
 	StaffCount                                              int64                       `json:"staffCount,omitempty"`
 	CompanyEmployeesSearchPageURL                           string                      `json:"companyEmployeesSearchPageUrl,omitempty"`
@@ -180,11 +180,6 @@ type CropInfo struct {
 	Width  int64 `json:"width,omitempty"`
 	Y      int64 `json:"y,omitempty"`
 	Height int64 `json:"height,omitempty"`
-}
-
-type Headline struct {
-	TextDirection string `json:"textDirection,omitempty"`
-	Text          string `json:"text,omitempty"`
 }
 
 type MiniCompany struct {

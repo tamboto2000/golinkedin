@@ -126,8 +126,9 @@ type Picture struct {
 }
 
 type Text struct {
-	TextDirection string `json:"textDirection,omitempty"`
-	Text          string `json:"text,omitempty"`
+	TextDirection string        `json:"textDirection,omitempty"`
+	Text          string        `json:"text,omitempty"`
+	Attributes    []interface{} `json:"attributes,omitempty"`
 }
 
 type Attribute struct {
@@ -135,6 +136,7 @@ type Attribute struct {
 	MiniProfile *MiniProfile `json:"miniProfile,omitempty"`
 	MiniSchool  *MiniSchool  `json:"miniSchool,omitempty"`
 	MiniGroup   *MiniGroup   `json:"miniGroup,omitempty"`
+	Distance    *Distance    `json:"distance,omitempty"`
 	SourceType  string       `json:"sourceType,omitempty"`
 	Start       int64        `json:"start,omitempty"`
 	Length      int64        `json:"length,omitempty"`
@@ -142,6 +144,10 @@ type Attribute struct {
 	Type        interface{} `json:"type,omitempty"`
 	ArtDecoIcon string      `json:"artDecoIcon,omitempty"`
 	VectorImage VectorImage `json:"vectorImage,omitempty"`
+}
+
+type Distance struct {
+	Value string `json:"value"`
 }
 
 type MiniGroup struct {
@@ -190,13 +196,13 @@ type Action struct {
 	Subtext    string      `json:"subtext,omitempty"`
 	SaveAction *SaveAction `json:"saveAction,omitempty"`
 	// can be string or Text
-	Text             interface{}  `json:"text,omitempty"`
-	URL              string       `json:"url,omitempty"`
-	TargetUrn        string       `json:"targetUrn,omitempty"`
-	ContentSource    string       `json:"contentSource,omitempty"`
-	AuthorProfileID  string       `json:"authorProfileId,omitempty"`
-	AuthorUrn        string       `json:"authorUrn,omitempty"`
-	ConfirmationText *Description `json:"confirmationText,omitempty"`
+	Text             interface{} `json:"text,omitempty"`
+	URL              string      `json:"url,omitempty"`
+	TargetUrn        string      `json:"targetUrn,omitempty"`
+	ContentSource    string      `json:"contentSource,omitempty"`
+	AuthorProfileID  string      `json:"authorProfileId,omitempty"`
+	AuthorUrn        string      `json:"authorUrn,omitempty"`
+	ConfirmationText *Text       `json:"confirmationText,omitempty"`
 }
 
 type SaveAction struct {

@@ -41,8 +41,8 @@ type Activity struct {
 }
 
 type Commentary struct {
-	TemplateType string      `json:"templateType,omitempty"`
-	Text         Description `json:"text,omitempty"`
+	TemplateType string `json:"templateType,omitempty"`
+	Text         Text   `json:"text,omitempty"`
 }
 
 type Content struct {
@@ -53,13 +53,13 @@ type COMLinkedinVoyagerFeedRenderArticleComponent struct {
 	TemplateType            string                                                    `json:"templateType,omitempty"`
 	Urn                     string                                                    `json:"urn,omitempty"`
 	LargeImage              *Image                                                    `json:"largeImage,omitempty"`
-	Subtitle                *Description                                              `json:"subtitle,omitempty"`
+	Subtitle                *Text                                                     `json:"subtitle,omitempty"`
 	NavigationContext       *NavigationContext                                        `json:"navigationContext,omitempty"`
 	Type                    string                                                    `json:"type,omitempty"`
-	Title                   *Description                                              `json:"title,omitempty"`
+	Title                   *Text                                                     `json:"title,omitempty"`
 	AuthorNavigationContext *NavigationContext                                        `json:"authorNavigationContext,omitempty"`
-	Author                  *Description                                              `json:"author,omitempty"`
-	Description             *Description                                              `json:"description,omitempty"`
+	Author                  *Text                                                     `json:"author,omitempty"`
+	Description             *Text                                                     `json:"description,omitempty"`
 	FollowAction            *COMLinkedinVoyagerFeedRenderArticleComponentFollowAction `json:"followAction,omitempty"`
 	SubtitleImage           *Image                                                    `json:"subtitleImage,omitempty"`
 	SubscribeAction         *SubscribeAction                                          `json:"subscribeAction,omitempty"`
@@ -92,7 +92,7 @@ type Actor struct {
 	Name                   *Name              `json:"name,omitempty"`
 	SubDescription         *SubDescription    `json:"subDescription,omitempty"`
 	NavigationContext      *NavigationContext `json:"navigationContext,omitempty"`
-	Description            *Description       `json:"description,omitempty"`
+	Description            *Text              `json:"description,omitempty"`
 	ShowInfluencerBadge    bool               `json:"showInfluencerBadge,omitempty"`
 	FollowAction           *ActorFollowAction `json:"followAction,omitempty"`
 }
@@ -118,21 +118,15 @@ type SubDescription struct {
 }
 
 type AuthorComponent struct {
-	Name        *Description          `json:"name,omitempty"`
+	Name        *Text                 `json:"name,omitempty"`
 	Image       *AuthorComponentImage `json:"image,omitempty"`
-	Description *Description          `json:"description,omitempty"`
+	Description *Text                 `json:"description,omitempty"`
 }
 
 type AuthorComponentImage struct {
 	Attributes                  []Attribute   `json:"attributes,omitempty"`
 	AccessibilityTextAttributes []interface{} `json:"accessibilityTextAttributes,omitempty"`
 	AccessibilityText           string        `json:"accessibilityText,omitempty"`
-}
-
-type Description struct {
-	TextDirection string        `json:"textDirection,omitempty"`
-	Attributes    []interface{} `json:"attributes,omitempty"`
-	Text          string        `json:"text,omitempty"`
 }
 
 type TrackingData struct {

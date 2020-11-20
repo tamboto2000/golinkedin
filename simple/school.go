@@ -1,6 +1,6 @@
 package simple
 
-type Company struct {
+type School struct {
 	UniversalName        string `json:"universalName,omitempty"`
 	URL                  string `json:"url,omitempty"`
 	Logo                 *Image `json:"logo,omitempty"`
@@ -13,12 +13,10 @@ type Company struct {
 	// StaffCountRange is staff count range based on company's admin input
 	StaffCountRange int `json:"staffCountRange,omitempty"`
 	// StaffCount is staff count based on people on linkedin worked in the company
-	StaffCount          int        `json:"staffCount,omitempty"`
-	Headquarter         string     `json:"headquarter,omitempty"`
-	CompanyType         string     `json:"companyType,omitempty"`
-	Founded             int        `json:"founded,omitempty"`
-	Specialities        []string   `json:"specialities,omitempty"`
-	Locations           []Location `json:"locations,omitempty"`
-	AffiliatedCompanies []Company  `json:"affiliatedCompanies,omitempty"`
-	// FeaturedGroups
+	StaffCount   int        `json:"staffCount,omitempty"`
+	Headquarter  string     `json:"headquarter,omitempty"`
+	CompanyType  string     `json:"companyType,omitempty"`
+	Founded      int        `json:"founded,omitempty"`
+	Specialities []string   `json:"specialities,omitempty"`
+	Locations    []Location `json:"locations,omitempty"`
 }
