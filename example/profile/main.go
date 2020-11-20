@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/tamboto2000/golinkedin/v1"
+	"github.com/tamboto2000/golinkedin"
 )
 
 func main() {
