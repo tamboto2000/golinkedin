@@ -1,5 +1,5 @@
 # Linkedin
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/tamboto2000/golinkedin/v1)](https://pkg.go.dev/github.com/tamboto2000/golinkedin/v1) [![GitHub](https://img.shields.io/github/license/tamboto2000/golinkedin)](https://github.com/tamboto2000/golinkedin/v1/blob/v1/LICENSE) ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/tamboto2000/golinkedin) [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/tamboto2000/linkedin/v1-build/v1)](https://github.com/tamboto2000/golinkedin/v1/actions/runs/368570504)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/tamboto2000/golinkedin)](https://pkg.go.dev/github.com/tamboto2000/golinkedin) [![GitHub](https://img.shields.io/github/license/tamboto2000/golinkedin)](https://github.com/tamboto2000/golinkedin/blob/v1/LICENSE) ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/tamboto2000/golinkedin) [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/tamboto2000/linkedin/v1-build/v1)](https://github.com/tamboto2000/golinkedin/actions/runs/368570504)
 
 Linkedin is a library for scraping Linkedin.
 Unfortunately, auto login is impossible (probably...), so you need to retrieve Linkedin session cookies manually.
@@ -41,7 +41,7 @@ Feel free to fork and contribute!
 This package require go version 1.14 or above.
 Make sure you have go modules activated.
 ```sh
-$ GO111MODULE=on go get github.com/tamboto2000/golinkedin/v1/v1
+$ GO111MODULE=on go get github.com/tamboto2000/golinkedin
 ```
 
 ### Full Profile Lookup Example
@@ -52,7 +52,7 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/tamboto2000/golinkedin/v1/v1"
+	"github.com/tamboto2000/golinkedin"
 )
 
 func main() {
@@ -84,7 +84,7 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/tamboto2000/golinkedin/v1/v1"
+	"github.com/tamboto2000/golinkedin"
 )
 
 func main() {
