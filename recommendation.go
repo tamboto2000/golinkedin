@@ -19,12 +19,12 @@ type RecommendationNode struct {
 
 type Recommendation struct {
 	EntityUrn                      string       `json:"entityUrn,omitempty"`
-	Created                        int64        `json:"created,omitempty"`
+	Created                        int          `json:"created,omitempty"`
 	Recommendee                    *MiniProfile `json:"recommendee,omitempty"`
 	RecommendationText             string       `json:"recommendationText,omitempty"`
 	RecommendeeEntity              string       `json:"recommendeeEntity,omitempty"`
 	VisibilityOnRecommenderProfile string       `json:"visibilityOnRecommenderProfile,omitempty"`
-	LastModified                   int64        `json:"lastModified,omitempty"`
+	LastModified                   int          `json:"lastModified,omitempty"`
 	Relationship                   string       `json:"relationship,omitempty"`
 	Recommender                    *MiniProfile `json:"recommender,omitempty"`
 	Status                         string       `json:"status,omitempty"`

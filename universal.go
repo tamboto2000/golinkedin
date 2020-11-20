@@ -138,8 +138,8 @@ type Attribute struct {
 	MiniGroup   *MiniGroup   `json:"miniGroup,omitempty"`
 	Distance    *Distance    `json:"distance,omitempty"`
 	SourceType  string       `json:"sourceType,omitempty"`
-	Start       int64        `json:"start,omitempty"`
-	Length      int64        `json:"length,omitempty"`
+	Start       int          `json:"start,omitempty"`
+	Length      int          `json:"length,omitempty"`
 	// can be string or Type
 	Type        interface{} `json:"type,omitempty"`
 	ArtDecoIcon string      `json:"artDecoIcon,omitempty"`
@@ -178,7 +178,7 @@ type Metadata struct {
 	NewRelevanceFeed     bool         `json:"newRelevanceFeed,omitempty"`
 	ID                   string       `json:"id,omitempty"`
 	Type                 string       `json:"type,omitempty"`
-	QueryAfterTime       int64        `json:"queryAfterTime,omitempty"`
+	QueryAfterTime       int          `json:"queryAfterTime,omitempty"`
 	Urn                  string       `json:"urn,omitempty"`
 	ActionsPosition      string       `json:"actionsPosition,omitempty"`
 	ActionTriggerEnabled bool         `json:"actionTriggerEnabled,omitempty"`
@@ -211,7 +211,7 @@ type SaveAction struct {
 }
 
 type CountRange struct {
-	Start  int64 `json:"start,omitempty"`
-	Length int   `json:"length,omitempty"`
-	End    int   `json:"end,omitempty"`
+	Start  int `json:"start,omitempty"`
+	Length int `json:"length,omitempty"`
+	End    int `json:"end,omitempty"`
 }

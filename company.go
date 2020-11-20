@@ -50,7 +50,7 @@ type Company struct {
 	Headline                                                *Text                       `json:"headline,omitempty"`
 	Subline                                                 *Text                       `json:"subline,omitempty"`
 	VideosTabVisible                                        bool                        `json:"videosTabVisible,omitempty"`
-	StaffCount                                              int64                       `json:"staffCount,omitempty"`
+	StaffCount                                              int                         `json:"staffCount,omitempty"`
 	CompanyEmployeesSearchPageURL                           string                      `json:"companyEmployeesSearchPageUrl,omitempty"`
 	ViewerFollowingJobsUpdates                              bool                        `json:"viewerFollowingJobsUpdates,omitempty"`
 	MyCompanyVisible                                        bool                        `json:"myCompanyVisible,omitempty"`
@@ -68,7 +68,7 @@ type Company struct {
 	PublishedProductsOwner                                  bool                        `json:"publishedProductsOwner,omitempty"`
 	CompanyPageURL                                          string                      `json:"companyPageUrl,omitempty"`
 	ViewerConnectedToAdministrator                          bool                        `json:"viewerConnectedToAdministrator,omitempty"`
-	DataVersion                                             int64                       `json:"dataVersion,omitempty"`
+	DataVersion                                             int                         `json:"dataVersion,omitempty"`
 	AssociatedHashtags                                      []string                    `json:"associatedHashtags,omitempty"`
 	ShowcasePages                                           []interface{}               `json:"showcasePages,omitempty"`
 	ClaimableByViewer                                       bool                        `json:"claimableByViewer,omitempty"`
@@ -176,10 +176,10 @@ type BackgroundCoverImage struct {
 }
 
 type CropInfo struct {
-	X      int64 `json:"x,omitempty"`
-	Width  int64 `json:"width,omitempty"`
-	Y      int64 `json:"y,omitempty"`
-	Height int64 `json:"height,omitempty"`
+	X      int `json:"x,omitempty"`
+	Width  int `json:"width,omitempty"`
+	Y      int `json:"y,omitempty"`
+	Height int `json:"height,omitempty"`
 }
 
 type MiniCompany struct {

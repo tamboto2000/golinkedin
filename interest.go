@@ -32,7 +32,7 @@ type Entity struct {
 type FollowingInfo struct {
 	FollowingType string `json:"followingType,omitempty"`
 	EntityUrn     string `json:"entityUrn,omitempty"`
-	FollowerCount int64  `json:"followerCount,omitempty"`
+	FollowerCount int    `json:"followerCount,omitempty"`
 	Following     bool   `json:"following,omitempty"`
 	TrackingUrn   string `json:"trackingUrn,omitempty"`
 }

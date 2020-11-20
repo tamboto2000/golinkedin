@@ -93,8 +93,8 @@ type ContactInfo struct {
 }
 
 type BirthDateOn struct {
-	Month int64 `json:"month,omitempty"`
-	Day   int64 `json:"day,omitempty"`
+	Month int `json:"month,omitempty"`
+	Day   int `json:"day,omitempty"`
 }
 
 type PhoneNumber struct {

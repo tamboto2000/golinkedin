@@ -36,8 +36,8 @@ type Query struct {
 }
 
 type QueryAttribute struct {
-	Start  int64      `json:"start,omitempty"`
-	Length int64      `json:"length,omitempty"`
+	Start  int        `json:"start,omitempty"`
+	Length int        `json:"length,omitempty"`
 	Type   *TypeClass `json:"type,omitempty"`
 }
 
@@ -94,8 +94,8 @@ type SnippetText struct {
 }
 
 type InsightTextAttribute struct {
-	Start  int64  `json:"start,omitempty"`
-	Length int64  `json:"length,omitempty"`
+	Start  int    `json:"start,omitempty"`
+	Length int    `json:"length,omitempty"`
 	Type   string `json:"type,omitempty"`
 }
 

@@ -32,7 +32,7 @@ type Group struct {
 	TrackingID                                  string        `json:"trackingId,omitempty"`
 	GroupName                                   string        `json:"groupName,omitempty"`
 	EntityUrn                                   string        `json:"entityUrn,omitempty"`
-	MemberCount                                 int64         `json:"memberCount,omitempty"`
+	MemberCount                                 int           `json:"memberCount,omitempty"`
 	Logo                                        *Image        `json:"logo,omitempty"`
 	RecipeType                                  string        `json:"$recipeType,omitempty"`
 	URL                                         string        `json:"url,omitempty"`
@@ -46,8 +46,8 @@ type Group struct {
 	Owners                                      []Attribute   `json:"owners"`
 	LogoUrn                                     string        `json:"logoUrn"`
 	InvitationLevel                             string        `json:"invitationLevel"`
-	MemberConnectionsCount                      int64         `json:"memberConnectionsCount"`
-	CreatedAt                                   int64         `json:"createdAt"`
+	MemberConnectionsCount                      int           `json:"memberConnectionsCount"`
+	CreatedAt                                   int           `json:"createdAt"`
 	Name                                        *Text         `json:"name"`
 	GlobalNewPostNotificationSettingOn          bool          `json:"globalNewPostNotificationSettingOn"`
 	RecommendByAdminAvailable                   bool          `json:"recommendByAdminAvailable"`
