@@ -61,9 +61,10 @@ type Coordinate struct {
 // Logo ususally used in Company or School for their logo image
 type Logo struct {
 	// Sometimes the images stored in here
-	COMLinkedinCommonVectorImage *VectorImage `json:"com.golinkedin.common.VectorImage,omitempty"`
+	COMLinkedinCommonVectorImage *VectorImage `json:"com.linkedin.common.VectorImage,omitempty"`
 	// Sometimes in here, make sure to check both of these fields
 	VectorImage *VectorImage `json:"vectorImage,omitempty"`
+	Image       *Image       `json:"image,omitempty"`
 }
 
 // TimePeriod represent a period of time
@@ -121,7 +122,7 @@ type Location struct {
 }
 
 type Picture struct {
-	COMLinkedinCommonVectorImage *VectorImage `json:"com.golinkedin.common.VectorImage,omitempty"`
+	COMLinkedinCommonVectorImage *VectorImage `json:"com.linkedin.common.VectorImage,omitempty"`
 }
 
 type Text struct {
@@ -153,7 +154,7 @@ type MiniGroup struct {
 }
 
 type Image struct {
-	COMLinkedinCommonVectorImage *VectorImage  `json:"com.golinkedin.common.VectorImage,omitempty"`
+	COMLinkedinCommonVectorImage *VectorImage  `json:"com.linkedin.common.VectorImage,omitempty"`
 	Attributes                   []Attribute   `json:"attributes,omitempty"`
 	AccessibilityTextAttributes  []interface{} `json:"accessibilityTextAttributes,omitempty"`
 }
@@ -206,5 +207,5 @@ type SaveAction struct {
 type CountRange struct {
 	Start  int64 `json:"start,omitempty"`
 	Length int   `json:"length,omitempty"`
-	To     int   `json:"to,omitempty"`
+	End    int   `json:"end,omitempty"`
 }

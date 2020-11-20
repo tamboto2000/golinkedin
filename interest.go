@@ -23,10 +23,10 @@ type InterestElement struct {
 }
 
 type Entity struct {
-	MiniCompany *MiniCompany `json:"com.golinkedin.voyager.entities.shared.MiniCompany,omitempty"`
-	MiniGroup   *MiniGroup   `json:"com.golinkedin.voyager.entities.shared.MiniGroup,omitempty"`
-	MiniSchool  *MiniSchool  `json:"com.golinkedin.voyager.entities.shared.MiniSchool,omitempty"`
-	MiniProfile *MiniProfile `json:"com.golinkedin.voyager.entities.shared.MiniProfile,omitempty"`
+	MiniCompany *MiniCompany `json:"com.linkedin.voyager.entities.shared.MiniCompany,omitempty"`
+	MiniGroup   *MiniGroup   `json:"com.linkedin.voyager.entities.shared.MiniGroup,omitempty"`
+	MiniSchool  *MiniSchool  `json:"com.linkedin.voyager.entities.shared.MiniSchool,omitempty"`
+	MiniProfile *MiniProfile `json:"com.linkedin.voyager.entities.shared.MiniProfile,omitempty"`
 }
 
 type FollowingInfo struct {

@@ -177,6 +177,25 @@ type MiniCompany struct {
 	TrackingID    string `json:"trackingId,omitempty"`
 }
 
+func (ln *Linkedin) CompanyByName(name string) (*CompanyNode, error) {
+	raw, err := ln.get("/organization/companies", url.Values{
+		"decorationId":  {"com.linkedin.voyager.deco.organization.web.WebFullCompanyMain-28"},
+		"q":             {"universalName"},
+		"universalName": {name},
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	compNode := new(CompanyNode)
+	if err := json.Unmarshal(raw, compNode); err != nil {
+		return nil, err
+	}
+
+	return compNode, nil
+}
+
 func (comp *CompanyNode) SetLinkedin(ln *Linkedin) {
 	comp.ln = ln
 }

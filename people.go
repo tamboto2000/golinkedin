@@ -48,7 +48,7 @@ type QueryAttribute struct {
 }
 
 type TypeClass struct {
-	COMLinkedinPemberlyTextBold COMLinkedinPemberlyTextBold `json:"com.golinkedin.pemberly.text.Bold,omitempty"`
+	COMLinkedinPemberlyTextBold COMLinkedinPemberlyTextBold `json:"com.linkedin.pemberly.text.Bold,omitempty"`
 }
 
 type COMLinkedinPemberlyTextBold struct {
@@ -127,7 +127,7 @@ type MiniProfile struct {
 }
 
 type BackgroundImage struct {
-	COMLinkedinCommonVectorImage VectorImage `json:"com.golinkedin.common.VectorImage,omitempty"`
+	COMLinkedinCommonVectorImage VectorImage `json:"com.linkedin.common.VectorImage,omitempty"`
 }
 
 func (ppl *PeopleNode) SetLinkedin(ln *Linkedin) {

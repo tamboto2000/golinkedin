@@ -46,7 +46,7 @@ type Commentary struct {
 }
 
 type Content struct {
-	COMLinkedinVoyagerFeedRenderArticleComponent COMLinkedinVoyagerFeedRenderArticleComponent `json:"com.golinkedin.voyager.feed.render.ArticleComponent,omitempty"`
+	COMLinkedinVoyagerFeedRenderArticleComponent COMLinkedinVoyagerFeedRenderArticleComponent `json:"com.linkedin.voyager.feed.render.ArticleComponent,omitempty"`
 }
 
 type COMLinkedinVoyagerFeedRenderArticleComponent struct {
