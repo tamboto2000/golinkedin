@@ -1,3 +1,3 @@
-module github.com/tamboto2000/golinkedin/v1
+module github.com/tamboto2000/golinkedin
 
-go 1.15
+go 1.14
