@@ -13,10 +13,12 @@ type School struct {
 	// StaffCountRange is staff count range based on company's admin input
 	StaffCountRange int `json:"staffCountRange,omitempty"`
 	// StaffCount is staff count based on people on linkedin worked in the company
-	StaffCount   int        `json:"staffCount,omitempty"`
-	Headquarter  string     `json:"headquarter,omitempty"`
-	CompanyType  string     `json:"companyType,omitempty"`
-	Founded      int        `json:"founded,omitempty"`
-	Specialities []string   `json:"specialities,omitempty"`
-	Locations    []Location `json:"locations,omitempty"`
+	StaffCount        int        `json:"staffCount,omitempty"`
+	Headquarter       string     `json:"headquarter,omitempty"`
+	CompanyType       string     `json:"companyType,omitempty"`
+	Founded           int        `json:"founded,omitempty"`
+	Specialities      []string   `json:"specialities,omitempty"`
+	Locations         []Location `json:"locations,omitempty"`
+	AffiliatedSchools []School   `json:"affiliatedSchools"`
+	FeaturedGroups    []Group    `json:"featuredGroups"`
 }

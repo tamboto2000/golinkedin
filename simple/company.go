@@ -20,5 +20,5 @@ type Company struct {
 	Specialities        []string   `json:"specialities,omitempty"`
 	Locations           []Location `json:"locations,omitempty"`
 	AffiliatedCompanies []Company  `json:"affiliatedCompanies,omitempty"`
-	// FeaturedGroups
+	FeaturedGroups      []Group    `json:"featuredGroups"`
 }
