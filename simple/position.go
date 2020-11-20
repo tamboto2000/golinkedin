@@ -1,10 +1,10 @@
 package simple
 
 type Position struct {
-	Title        string     `json:"title"`
-	CompanyName  string     `json:"companyName"`
-	DateRange    *DateRange `json:"dateRange"`
-	LocationName string     `json:"locationName"`
-	Description  string     `json:"description"`
-	Company      *Company   `json:"company"`
+	Title        string     `json:"title,omitempty"`
+	CompanyName  string     `json:"companyName,omitempty"`
+	DateRange    *DateRange `json:"dateRange,omitempty"`
+	LocationName string     `json:"locationName,omitempty"`
+	Description  string     `json:"description,omitempty"`
+	Company      *Company   `json:"company,omitempty"`
 }

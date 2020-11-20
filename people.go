@@ -9,7 +9,7 @@ import (
 
 type PeopleNode struct {
 	Metadata     Metadata            `json:"metadata,omitempty"`
-	Elements     []PeopleNodeElement `json:"elements,omitempty"`
+	Elements     []People            `json:"elements,omitempty"`
 	Paging       Paging              `json:"paging,omitempty"`
 	Keywords     string              `json:"keywords,omitempty"`
 	Filters      *PeopleSearchFilter `json:"peopleSearchFilter,omitempty"`
@@ -18,12 +18,6 @@ type PeopleNode struct {
 	err        error
 	ln         *Linkedin
 	stopCursor bool
-}
-
-type PeopleNodeElement struct {
-	ExtendedElements []ExtendedElement `json:"extendedElements,omitempty"`
-	Elements         []People          `json:"elements,omitempty"`
-	Type             string            `json:"type,omitempty"`
 }
 
 type ExtendedElement struct {
@@ -55,29 +49,32 @@ type COMLinkedinPemberlyTextBold struct {
 }
 
 type People struct {
-	Image                Image           `json:"image,omitempty"`
-	Subtext              Text            `json:"subtext,omitempty"`
-	TargetUrn            string          `json:"targetUrn,omitempty"`
-	ObjectUrn            string          `json:"objectUrn,omitempty"`
-	Text                 Text            `json:"text,omitempty"`
-	DashTargetUrn        string          `json:"dashTargetUrn,omitempty"`
-	Type                 string          `json:"type,omitempty"`
-	TrackingID           string          `json:"trackingId,omitempty"`
-	MemberDistance       *MemberDistance `json:"memberDistance,omitempty"`
-	SocialProofImagePile []Image         `json:"socialProofImagePile,omitempty"`
-	TrackingUrn          string          `json:"trackingUrn,omitempty"`
-	NavigationURL        string          `json:"navigationUrl,omitempty"`
-	Title                *Title          `json:"title,omitempty"`
-	Headless             bool            `json:"headless,omitempty"`
-	Badges               *Badges         `json:"badges,omitempty"`
-	SocialProofText      string          `json:"socialProofText,omitempty"`
-	SnippetText          *SnippetText    `json:"snippetText,omitempty"`
-	SecondaryTitle       *Title          `json:"secondaryTitle,omitempty"`
-	PublicIdentifier     string          `json:"publicIdentifier,omitempty"`
-	Headline             *Title          `json:"headline,omitempty"`
-	NameMatch            bool            `json:"nameMatch,omitempty"`
-	Subline              *Title          `json:"subline,omitempty"`
-	Insights             []Insight       `json:"insights,omitempty"`
+	// Elements contains peoples from search people result
+	Elements             []People          `json:"elements,omitempty"`
+	ExtendedElements     []ExtendedElement `json:"extendedElements,omitempty"`
+	Image                Image             `json:"image,omitempty"`
+	Subtext              Text              `json:"subtext,omitempty"`
+	TargetUrn            string            `json:"targetUrn,omitempty"`
+	ObjectUrn            string            `json:"objectUrn,omitempty"`
+	Text                 Text              `json:"text,omitempty"`
+	DashTargetUrn        string            `json:"dashTargetUrn,omitempty"`
+	Type                 string            `json:"type,omitempty"`
+	TrackingID           string            `json:"trackingId,omitempty"`
+	MemberDistance       *MemberDistance   `json:"memberDistance,omitempty"`
+	SocialProofImagePile []Image           `json:"socialProofImagePile,omitempty"`
+	TrackingUrn          string            `json:"trackingUrn,omitempty"`
+	NavigationURL        string            `json:"navigationUrl,omitempty"`
+	Title                *Title            `json:"title,omitempty"`
+	Headless             bool              `json:"headless,omitempty"`
+	Badges               *Badges           `json:"badges,omitempty"`
+	SocialProofText      string            `json:"socialProofText,omitempty"`
+	SnippetText          *SnippetText      `json:"snippetText,omitempty"`
+	SecondaryTitle       *Title            `json:"secondaryTitle,omitempty"`
+	PublicIdentifier     string            `json:"publicIdentifier,omitempty"`
+	Headline             *Title            `json:"headline,omitempty"`
+	NameMatch            bool              `json:"nameMatch,omitempty"`
+	Subline              *Title            `json:"subline,omitempty"`
+	Insights             []Insight         `json:"insights,omitempty"`
 }
 
 type Insight struct {

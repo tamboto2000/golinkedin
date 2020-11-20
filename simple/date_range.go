@@ -1,6 +1,6 @@
 package simple
 
 type DateRange struct {
-	Start *Date `json:"date"`
-	End   *Date `json:"end"`
+	Start *Date `json:"date,omitempty"`
+	End   *Date `json:"end,omitempty"`
 }

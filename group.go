@@ -7,31 +7,34 @@ import (
 )
 
 type GroupNode struct {
-	Keywords string             `json:"keywords,omitempty"`
-	Metadata Metadata           `json:"metadata,omitempty"`
-	Elements []GroupNodeElement `json:"elements,omitempty"`
-	Paging   Paging             `json:"paging,omitempty"`
+	Keywords string   `json:"keywords,omitempty"`
+	Metadata Metadata `json:"metadata,omitempty"`
+	Elements []Group  `json:"elements,omitempty"`
+	Paging   Paging   `json:"paging,omitempty"`
 
 	err        error
 	ln         *Linkedin
 	stopCursor bool
 }
 
-type GroupNodeElement struct {
-	ExtendedElements []interface{} `json:"extendedElements,omitempty"`
-	Elements         []Group       `json:"elements,omitempty"`
-	Type             string        `json:"type,omitempty"`
-}
-
 type Group struct {
-	Image       Image    `json:"image,omitempty"`
-	TargetUrn   string   `json:"targetUrn,omitempty"`
-	TrackingUrn string   `json:"trackingUrn,omitempty"`
-	Title       Headline `json:"title,omitempty"`
-	Type        string   `json:"type,omitempty"`
-	Headline    Headline `json:"headline,omitempty"`
-	Subline     Headline `json:"subline,omitempty"`
-	TrackingID  string   `json:"trackingId,omitempty"`
+	// Elements contains groups from search group result
+	Elements         []Group       `json:"elements,omitempty"`
+	ExtendedElements []interface{} `json:"extendedElements,omitempty"`
+	Image            Image         `json:"image,omitempty"`
+	TargetUrn        string        `json:"targetUrn,omitempty"`
+	TrackingUrn      string        `json:"trackingUrn,omitempty"`
+	Title            Headline      `json:"title,omitempty"`
+	Type             string        `json:"type,omitempty"`
+	Headline         Headline      `json:"headline,omitempty"`
+	Subline          Headline      `json:"subline,omitempty"`
+	TrackingID       string        `json:"trackingId,omitempty"`
+	GroupName        string        `json:"groupName,omitempty"`
+	EntityUrn        string        `json:"entityUrn,omitempty"`
+	MemberCount      int64         `json:"memberCount,omitempty"`
+	Logo             Image         `json:"logo,omitempty"`
+	RecipeType       string        `json:"$recipeType,omitempty"`
+	URL              string        `json:"url,omitempty"`
 }
 
 func (gr *GroupNode) SetLinkedin(ln *Linkedin) {
