@@ -106,6 +106,7 @@ type Country struct {
 type Location struct {
 	PreferredGeoPlace string `json:"preferredGeoPlace,omitempty"`
 	CountryCode       string `json:"countryCode,omitempty"`
+	GeographicArea    string `json:"geographicArea,omitempty"`
 	Country           string `json:"country,omitempty"`
 	City              string `json:"city,omitempty"`
 	PostalCode        string `json:"postalCode,omitempty"`
