@@ -34,6 +34,7 @@ type Group struct {
 	EntityUrn                                   string        `json:"entityUrn,omitempty"`
 	MemberCount                                 int           `json:"memberCount,omitempty"`
 	Logo                                        *Image        `json:"logo,omitempty"`
+	HeroImage                                   *Image        `json:"heroImage,omitempty"`
 	RecipeType                                  string        `json:"$recipeType,omitempty"`
 	URL                                         string        `json:"url,omitempty"`
 	DashEntityUrn                               string        `json:"dashEntityUrn"`

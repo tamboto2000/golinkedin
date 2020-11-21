@@ -35,6 +35,7 @@ Feel free to fork and contribute!
   - Profile Patents Lookup
   - Profile Languages Data
   - Profile Courses Lookup
+  - Profile Accomplishments
 
 ### Installation
 
