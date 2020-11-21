@@ -28,7 +28,7 @@ type Company struct {
 	AntiAbuseAnnotations                                    []AntiAbuseAnnotation       `json:"$anti_abuse_annotations,omitempty"`
 	EntityUrn                                               string                      `json:"entityUrn,omitempty"`
 	MiniCompany                                             *MiniCompany                `json:"miniCompany,omitempty"`
-	EmployeeCountRange                                      *EmployeeCountRange         `json:"employeeCountRange,omitempty"`
+	EmployeeCountRange                                      *CountRange                 `json:"employeeCountRange,omitempty"`
 	Industries                                              []string                    `json:"industries,omitempty"`
 	Name                                                    string                      `json:"name,omitempty"`
 	Logo                                                    *Logo                       `json:"logo,omitempty"`

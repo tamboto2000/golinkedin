@@ -42,7 +42,7 @@ type School struct {
 	Industry                                                map[string]Industry         `json:"industry,omitempty"`
 	IndustryUrns                                            []string                    `json:"industryUrns,omitempty"`
 	MiniCompany                                             *MiniCompany                `json:"miniCompany,omitempty"`
-	EmployeeCountRange                                      *EmployeeCountRange         `json:"employeeCountRange,omitempty"`
+	EmployeeCountRange                                      *CountRange                 `json:"employeeCountRange,omitempty"`
 	Industries                                              []string                    `json:"industries,omitempty"`
 	UniversalName                                           string                      `json:"universalName,omitempty"`
 	Showcase                                                bool                        `json:"showcase,omitempty"`

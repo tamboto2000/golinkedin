@@ -97,12 +97,6 @@ type Locale struct {
 	AntiAbuseAnnotations []AntiAbuseAnnotation `json:"$anti_abuse_annotations,omitempty"`
 }
 
-type EmployeeCountRange struct {
-	Start      int    `json:"start,omitempty"`
-	RecipeType string `json:"$recipeType,omitempty"`
-	End        int    `json:"end,omitempty"`
-}
-
 type Country struct {
 	RecipeType           string `json:"$recipeType,omitempty"`
 	EntityUrn            string `json:"entityUrn,omitempty"`
