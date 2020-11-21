@@ -100,8 +100,8 @@ type School struct {
 	OverviewPhoto                                           Photo                       `json:"overviewPhoto,omitempty"`
 	CoverPhoto                                              Photo                       `json:"coverPhoto,omitempty"`
 	School                                                  string                      `json:"school,omitempty"`
-	AffiliatedCompaniesResolutionResults                    map[string]Company          `json:"affiliatedCompaniesResolutionResults,omitempty"`
-	ShowcasePagesResolutionResults                          map[string]Company          `json:"showcasePagesResolutionResults,omitempty"`
+	AffiliatedCompaniesResolutionResults                    map[string]School           `json:"affiliatedCompaniesResolutionResults,omitempty"`
+	ShowcasePagesResolutionResults                          map[string]School           `json:"showcasePagesResolutionResults,omitempty"`
 	GroupsResolutionResults                                 map[string]Group
 }
 
