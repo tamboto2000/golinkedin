@@ -296,6 +296,7 @@ func (ln *Linkedin) SearchPeople(keywords string, filter *PeopleSearchFilter) (*
 	peopleNode.ln = ln
 	peopleNode.Filters = filter
 	peopleNode.QueryContext = DefaultSearchPeopleQueryContext
+	peopleNode.Paging.Start += peopleNode.Paging.Count
 
 	return peopleNode, nil
 }
@@ -322,6 +323,7 @@ func (ln *Linkedin) SearchGeo(keywords string) (*GeoNode, error) {
 
 	geoNode.ln = ln
 	geoNode.Keywords = keywords
+	geoNode.Paging.Start += geoNode.Paging.Count
 
 	return geoNode, nil
 }
@@ -347,6 +349,7 @@ func (ln *Linkedin) SearchCompany(keywords string) (*CompanyNode, error) {
 
 	compNode.ln = ln
 	compNode.Keywords = keywords
+	compNode.Paging.Start += compNode.Paging.Count
 
 	return compNode, nil
 }
@@ -371,6 +374,7 @@ func (ln *Linkedin) SearchIndustry(keywords string) (*IndustryNode, error) {
 
 	indNode.ln = ln
 	indNode.Keywords = keywords
+	indNode.Paging.Start += indNode.Paging.Count
 
 	return indNode, nil
 }
@@ -396,6 +400,7 @@ func (ln *Linkedin) SearchSchool(keywords string) (*SchoolNode, error) {
 
 	schoolNode.ln = ln
 	schoolNode.Keywords = keywords
+	schoolNode.Paging.Start += schoolNode.Paging.Count
 
 	return schoolNode, nil
 }
@@ -421,6 +426,7 @@ func (ln *Linkedin) SearchService(keywords string) (*ServiceNode, error) {
 
 	svcNode.ln = ln
 	svcNode.Keywords = keywords
+	svcNode.Paging.Start += svcNode.Paging.Count
 
 	return svcNode, nil
 }
@@ -446,6 +452,7 @@ func (ln *Linkedin) SearchGroup(keywords string) (*GroupNode, error) {
 
 	groupNode.ln = ln
 	groupNode.Keywords = keywords
+	groupNode.Paging.Start += groupNode.Paging.Count
 
 	return groupNode, nil
 }
