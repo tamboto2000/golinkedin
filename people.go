@@ -2,7 +2,6 @@ package golinkedin
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/url"
 	"strconv"
 )
@@ -169,8 +168,6 @@ func (ppl *PeopleNode) Next() bool {
 	if len(ppl.Elements[0].Elements) < ppl.Paging.Count {
 		ppl.stopCursor = true
 	}
-
-	fmt.Println("cursor")
 
 	return true
 }
