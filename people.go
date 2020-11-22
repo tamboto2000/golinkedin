@@ -165,8 +165,14 @@ func (ppl *PeopleNode) Next() bool {
 		return false
 	}
 
-	if len(ppl.Elements[0].Elements) < ppl.Paging.Count {
-		ppl.stopCursor = true
+	for _, elem := range ppl.Elements {
+		if elem.Type == "SEARCH_HITS" {
+			if len(elem.Elements) < ppl.Paging.Count {
+				ppl.stopCursor = true
+			}
+
+			break
+		}
 	}
 
 	return true
