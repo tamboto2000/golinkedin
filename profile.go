@@ -156,6 +156,23 @@ func (p *ProfileNode) ProfileID() string {
 	return parseProfileID(p.Elements[0].EntityUrn)
 }
 
+// Connections return profile connections.
+// You can perform this action by calling Linkedin.SearchPeople
+func (p *ProfileNode) Connections() (*PeopleNode, error) {
+	return p.ln.SearchPeople(
+		"",
+		&PeopleSearchFilter{
+			Network:      []string{Rank1, Rank2, Rank3},
+			ConnectionOf: p.ProfileID(),
+			ResultType:   ResultPeople,
+		},
+		&QueryContext{
+			SpellCorrectionEnabled: true,
+		},
+		OriginMemberProfileCannedSearch,
+	)
+}
+
 // Organizations prepare OrganizarionNode for cursoring
 func (p *ProfileNode) Organizations() *OrganizationNode {
 	profileID := parseProfileID(p.Elements[0].EntityUrn)
