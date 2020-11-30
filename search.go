@@ -268,9 +268,15 @@ func composeFilter(obj interface{}) string {
 	return filter.str()
 }
 
-func (ln *Linkedin) SearchPeople(keywords string, filter *PeopleSearchFilter) (*PeopleNode, error) {
+// SearchPeople search people based on filter.
+// If filter is nil, default value will be used
+func (ln *Linkedin) SearchPeople(keywords string, filter *PeopleSearchFilter, ctx *QueryContext) (*PeopleNode, error) {
 	if filter == nil {
 		filter = DefaultSearchPeopleFilter
+	}
+
+	if ctx == nil {
+		ctx = DefaultSearchPeopleQueryContext
 	}
 
 	filter.ResultType = ResultPeople
@@ -280,7 +286,7 @@ func (ln *Linkedin) SearchPeople(keywords string, filter *PeopleSearchFilter) (*
 		"origin":       {OriginFacetedSearch},
 		"q":            {QAll},
 		"filters":      {composeFilter(filter)},
-		"queryContext": {composeFilter(DefaultSearchPeopleQueryContext)},
+		"queryContext": {composeFilter(ctx)},
 	})
 
 	if err != nil {
