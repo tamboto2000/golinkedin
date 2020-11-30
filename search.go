@@ -64,6 +64,7 @@ const (
 	TypeIndustry    = "INDUSTRY"
 	TypeSchool      = "SCHOOL"
 	TypeSkill       = "SKILL"
+	TypeSearchHits  = "SEARCH_HITS"
 )
 
 // Values of param q, not to be confused with tag `q` on param struct or QueryContext
