@@ -138,15 +138,20 @@ func (ppl *PeopleNode) Next() bool {
 
 	start := strconv.Itoa(ppl.Paging.Start)
 	count := strconv.Itoa(ppl.Paging.Count)
-	raw, err := ppl.ln.get("/search/blended", url.Values{
-		"keywords":     {ppl.Keywords},
+	urlVals := url.Values{
 		"origin":       {ppl.Origin},
 		"q":            {QAll},
 		"start":        {start},
 		"count":        {count},
 		"filters":      {composeFilter(ppl.Filters)},
 		"queryContext": {composeFilter(ppl.QueryContext)},
-	})
+	}
+
+	if ppl.Keywords != "" {
+		urlVals.Set("keywords", ppl.Keywords)
+	}
+
+	raw, err := ppl.ln.get("/search/blended", urlVals)
 
 	if err != nil {
 		ppl.err = err

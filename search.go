@@ -287,14 +287,18 @@ func (ln *Linkedin) SearchPeople(keywords string, filter *PeopleSearchFilter, ct
 	}
 
 	filter.ResultType = ResultPeople
-
-	raw, err := ln.get("/search/blended", url.Values{
-		"keywords":     {keywords},
+	urlVals := url.Values{
 		"origin":       {origin},
 		"q":            {QAll},
 		"filters":      {composeFilter(filter)},
 		"queryContext": {composeFilter(ctx)},
-	})
+	}
+
+	if keywords != "" {
+		urlVals.Set("keywords", keywords)
+	}
+
+	raw, err := ln.get("/search/blended", urlVals)
 
 	if err != nil {
 		return nil, err
