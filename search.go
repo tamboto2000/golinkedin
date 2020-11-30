@@ -307,7 +307,8 @@ func (ln *Linkedin) SearchPeople(keywords string, filter *PeopleSearchFilter, ct
 	peopleNode.Keywords = keywords
 	peopleNode.ln = ln
 	peopleNode.Filters = filter
-	peopleNode.QueryContext = DefaultSearchPeopleQueryContext
+	peopleNode.QueryContext = ctx
+	peopleNode.Origin = origin
 	peopleNode.Paging.Start += peopleNode.Paging.Count
 
 	return peopleNode, nil
