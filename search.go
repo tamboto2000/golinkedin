@@ -25,12 +25,14 @@ const (
 
 // Search Origin
 const (
-	// OFacetedSearch could be used for people search
+	// OriginFacetedSearch could be used for people search
 	OriginFacetedSearch = "FACETED_SEARCH"
-	// OSwitchSearchVertical could be used for people search
+	// OriginSwitchSearchVertical could be used for people search
 	OriginSwitchSearchVertical = "SWITCH_SEARCH_VERTICAL"
-	// OOtther could be used for geo search
+	// OriginOtther could be used for geo search
 	OriginOther = "OTHER"
+	// OriginMemberProfileCannedSearch can be used for people search
+	OriginMemberProfileCannedSearch = "MEMBER_PROFILE_CANNED_SEARCH"
 )
 
 // Contact Interest values
@@ -269,8 +271,8 @@ func composeFilter(obj interface{}) string {
 }
 
 // SearchPeople search people based on filter.
-// If filter is nil, default value will be used
-func (ln *Linkedin) SearchPeople(keywords string, filter *PeopleSearchFilter, ctx *QueryContext) (*PeopleNode, error) {
+// If filter is nil, default value will be used, and so with ctx and origin
+func (ln *Linkedin) SearchPeople(keywords string, filter *PeopleSearchFilter, ctx *QueryContext, origin string) (*PeopleNode, error) {
 	if filter == nil {
 		filter = DefaultSearchPeopleFilter
 	}
@@ -279,11 +281,15 @@ func (ln *Linkedin) SearchPeople(keywords string, filter *PeopleSearchFilter, ct
 		ctx = DefaultSearchPeopleQueryContext
 	}
 
+	if origin == "" {
+		origin = OriginFacetedSearch
+	}
+
 	filter.ResultType = ResultPeople
 
 	raw, err := ln.get("/search/blended", url.Values{
 		"keywords":     {keywords},
-		"origin":       {OriginFacetedSearch},
+		"origin":       {origin},
 		"q":            {QAll},
 		"filters":      {composeFilter(filter)},
 		"queryContext": {composeFilter(ctx)},
