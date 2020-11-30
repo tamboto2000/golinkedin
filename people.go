@@ -13,6 +13,7 @@ type PeopleNode struct {
 	Keywords     string              `json:"keywords,omitempty"`
 	Filters      *PeopleSearchFilter `json:"peopleSearchFilter,omitempty"`
 	QueryContext *QueryContext       `json:"queryContext,omitempty"`
+	Origin       string              `json:"origin,omitempty"`
 
 	err        error
 	ln         *Linkedin
@@ -139,7 +140,7 @@ func (ppl *PeopleNode) Next() bool {
 	count := strconv.Itoa(ppl.Paging.Count)
 	raw, err := ppl.ln.get("/search/blended", url.Values{
 		"keywords":     {ppl.Keywords},
-		"origin":       {OriginFacetedSearch},
+		"origin":       {ppl.Origin},
 		"q":            {QAll},
 		"start":        {start},
 		"count":        {count},
