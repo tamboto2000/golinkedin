@@ -1,4 +1,4 @@
-// Package linkedin is a library for scraping Linkedin.
+// Package golinkedin is a library for scraping Linkedin.
 // Unfortunately, auto login is impossible (probably...), so you need to retrieve Linkedin session cookies manually.
 // As mentioned above, the purpose of this package is only for scraping, so there is no method for create, update, or delete data.
 // Not all object is documented or present because Franklin Collin Tamboto, the original author, does not fully understand the purpose
