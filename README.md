@@ -4,7 +4,7 @@
 Golinkedin is a library for scraping Linkedin.
 Unfortunately, auto login is impossible (probably...), so you need to retrieve Linkedin session cookies manually.
 As mentioned above, the purpose of this package is only for scraping, so there is no method for create, update, or delete data.
-Not all object is documented or present because Franklin Collin Tamboto, the original author, does not fully understand the purpose of some object returned by Linkedin internal API, and because the nature of Linkedin internal API that treat almost every object as optional, empty field or object will not be returned by Linkedin internal API, so some object or fields might be missing.
+Not all object is documented or present because the original author does not fully understand the purpose of some object returned by Linkedin internal API, and because the nature of Linkedin internal API that treat almost every object as optional, empty field or object will not be returned by Linkedin internal API, so some object or fields might be missing.
 Feel free to fork and contribute!
 
 # Current Features
