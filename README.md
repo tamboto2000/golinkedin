@@ -1,3 +1,8 @@
+# v2 is on the way!
+At the beginning, this library is created because of my previous job which involve scraping social media platforms, the intended purpose of this library is to get the Linkedin data as much as possible but still follow the raw structure that Linkedin has, which is to be frank, a ball of tangled mess of JSON. Now that a lot of people starting to use this library too I think it is time for me to be a bit more serious to maintain this. So with that in mind, I announce that there will be V2 of this library, which will introduce much simpler data structure and will be much more easy to use, and of course, much more clearer documentation. If anybody wants to help me, feel free to do so. Thanks!
+
+\- Franklin
+
 # Golinkedin
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/tamboto2000/golinkedin)](https://pkg.go.dev/github.com/tamboto2000/golinkedin) [![GitHub](https://img.shields.io/github/license/tamboto2000/golinkedin)](https://github.com/tamboto2000/golinkedin/blob/v1/LICENSE) ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/tamboto2000/golinkedin) [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/tamboto2000/linkedin/v1-build/v1)](https://github.com/tamboto2000/golinkedin/runs/1433927028)
 
