@@ -34,7 +34,6 @@ type Profile struct {
 	ProfileSkills                         *SkillNode         `json:"profileSkills,omitempty"`
 	RecipeType                            string             `json:"$recipeType,omitempty"`
 	MultiLocaleHeadline                   *MultiLocale       `json:"multiLocaleHeadline,omitempty"`
-	ProfileHonors                         *HonorNode         `json:"profileHonors,omitempty"`
 	Memorialized                          bool               `json:"memorialized,omitempty"`
 	LastName                              string             `json:"lastName,omitempty"`
 	VolunteerCauses                       []string           `json:"volunteerCauses,omitempty"`
@@ -55,6 +54,7 @@ type Profile struct {
 	Location                              *Location          `json:"location,omitempty"`
 	BackgroundPicture                     *BackgroundPicture `json:"backgroundPicture,omitempty"`
 	PrimaryLocale                         *Locale            `json:"primaryLocale,omitempty"`
+	ContactInfo                           *ContactInfo       `json:"contactInfo,omitempty"`
 
 	// Unsolved:
 	// ProfileTreasuryMediaProfile
@@ -64,6 +64,7 @@ type Profile struct {
 	// ProfilePatents
 	// ProfileLanguages
 	// ProfileCourses
+	// ProfileHonors -- prior SDK version had coverage but was causing errors when profiles had Honors data.  Moving to unsolved as a workaround for now.
 }
 
 // ProfilePicture contains multiple qualities of profile picture
@@ -211,16 +212,6 @@ func (p *ProfileNode) Skills() *SkillNode {
 	s.ProfileID = profileID
 
 	return s
-}
-
-// Honors prepare HonorNode for cursoring
-func (p *ProfileNode) Honors() *HonorNode {
-	profileID := parseProfileID(p.Elements[0].EntityUrn)
-	honor := p.Elements[0].ProfileHonors
-	honor.ln = p.ln
-	honor.ProfileID = profileID
-
-	return honor
 }
 
 // PositionGroups prepare PositionGroups for cursoring
