@@ -18,7 +18,6 @@ Feel free to fork and contribute!
   - Profile Organizations Lookup
   - Profile Educations Lookup
   - Profile Certifications Lookup
-  - Profile Honors Lookup
   - Profile Positions Lookup
   - Profile Interest Lookup
   - Profile Acitivity Lookup
@@ -41,6 +40,7 @@ Feel free to fork and contribute!
   - Profile Languages Data
   - Profile Courses Lookup
   - Profile Accomplishments
+  - Profile Honors Lookup
 
 ### Installation
 
