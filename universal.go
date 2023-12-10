@@ -18,6 +18,17 @@ type MultiLocale struct {
 	EnUS string `json:"en_US,omitempty"`
 }
 
+type MultiLocalePronunciationAudio struct {
+	EnUS *PronunciationAudio `json:"en_US,omitempty"`
+}
+
+type PronunciationAudio struct {
+	Duration   int    `json:"duration,omitempty"`
+	URN        string `json:"urn,omitempty"`
+	RecipeType string `json:"$recipeType,omitempty"`
+	URL        string `json:"url,omitempty"`
+}
+
 type DisplayImageReference struct {
 	VectorImage *VectorImage `json:"vectorImage,omitempty"`
 	URL         string       `json:"url,omitempty"`
